@@ -7,17 +7,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import * as mongoose from "mongoose";
-export default function connect() {
-    return __awaiter(this, void 0, void 0, function* () {
-        mongoose.set("strictQuery", false);
-        yield mongoose
-            .connect(process.env.MONGODB_URL)
-            .then(() => {
-            console.log("database work");
-        })
-            .catch((err) => {
-            console.log(err);
+import { defineStore } from 'pinia';
+export const useFetchUserStore = defineStore('fetchUser', () => {
+    const reactiveVar = ref();
+    function fetchData() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const data = yield fetch('');
+            const res = yield data.json();
+            reactiveVar.value = res;
         });
-    });
-}
+    }
+    return { reactiveVar, fetchData };
+});
