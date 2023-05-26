@@ -38,3 +38,21 @@ export const getProduct = async (req, res) => {
         })
     })
 }
+
+
+export const getProductByCategory = async (req, res) => {
+    let {categoryId} = req.query;
+   
+    Product.find(
+        {
+            categoryId,
+        }
+    ).then(data => {
+        res.json(data)
+    }).catch(err => {
+        res.json({
+            msg: 'Something wrong',
+            err
+        })
+    })
+}
