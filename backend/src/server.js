@@ -4,6 +4,8 @@ import userRoutes from './Routers/UserRoutes.js'
 import farmerRoutes from './Routers/FarmerRoutes.js'
 import categoryRouter from './Routers/CategoryRouter.js'
 import basketRoutes from './Routers/BasketRoutes.js'
+import deliveryTypes from './Routers/DeliveryTypeRoutes.js'
+import productRoutes from './Routers/ProductRoutes.js'
 import cors from 'cors'
 const app = express()
 const port = 3000
@@ -15,7 +17,8 @@ app.use('/api/category', categoryRouter)
 app.use('/api', farmerRoutes)
 app.use('/api', userRoutes)
 app.use('/api', basketRoutes)
-
+app.use('/api', deliveryTypes)
+app.use('/api', productRoutes)
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
