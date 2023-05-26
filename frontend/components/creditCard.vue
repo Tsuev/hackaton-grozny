@@ -40,7 +40,7 @@
 
                   </svg>
                </div>
-               <div class="row card-no">
+               <div class="row card-no" v-if="cardObj.number">
                   <p v-for="i in cardObj.number.split(' ')" :key="i">{{ i }}</p>
                </div>
                <div class="row card-holder">

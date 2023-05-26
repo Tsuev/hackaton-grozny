@@ -55,6 +55,15 @@
 <script setup lang="ts">
 let cart: any = ref([]);
 
+fetch("http://192.168.88.151:3000/api/basket/add", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    product: "6470f40e92c386b950f8d535",
+    basketId: localStorage.getItem("cartId"),
+  }),
+});
+
 fetch(
   `http://192.168.88.151:3000/api/basket${
     "?id=" + localStorage.getItem("cartId")

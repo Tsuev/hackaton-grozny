@@ -17,13 +17,11 @@
       </div>
       <div v-if="actPage == 2">,
          <h1 class="text-[30px] font-bold mb-[40px]">Карта клиента</h1>
-         <CreditCard :card-obj="cardObj" v-if="cardObj" />
-         <div v-else>
+         <CreditCard :card-obj="cardObj" />
             <button @click="modalCardCash = true"
                class="py-[10px] px-[20px] mt-[40px] hover:bg-green-700 transition-all bg-green-400 text-xl font-semibold text-white rounded-[10px]">Добавить
                карту</button>
             <AddCardCash v-if="modalCardCash" @close="modalCardCash = false" />
-         </div>
       </div>
    </div>
 </template>
