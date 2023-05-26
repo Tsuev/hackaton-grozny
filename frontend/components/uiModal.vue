@@ -29,7 +29,7 @@
 
 .modal-container {
    background-color: #fff;
-   max-width: 500px;
+   max-width: 700px;
    border-radius: 10px;
    position: relative;
    padding: 30px;
