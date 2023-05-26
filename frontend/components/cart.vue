@@ -7,9 +7,9 @@
           <span>Минимальная сумма заказа 900 ₽</span>
         </div>
 
-        <div class="cart__products">
+        <div v-if="cart?.basketItems?.length" class="cart__products">
           <div
-            v-for="item in cart"
+            v-for="item in cart.basketItems"
             :key="item._id"
             class="products__item p-2 flex justify-between items-center border-grey border-b"
           >
@@ -25,6 +25,7 @@
             <div class="product__price">{{ item.totalSum }} руб.</div>
           </div>
         </div>
+        <div v-else>Корзина пуста</div>
       </div>
       <div class="cart-sidebar">
         <div class="cart-sidebar__one">
@@ -48,30 +49,38 @@
 
 <script setup lang="ts">
 let cart: any = ref([]);
+
+fetch("http://192.168.88.151:3000/api/basket/add", {
+  method: "POST",
+  body: JSON.stringify({
+    product: "6470f40e92c386b950f8d535",
+    basketId: localStorage.getItem("cartId"),
+  }),
+});
+
 fetch(
   `http://192.168.88.151:3000/api/basket${
-    localStorage.getItem("cartId")
-      ? "?id=" + localStorage.getItem("cartId")
-      : ""
+    "?id=" + localStorage.getItem("cartId")
   }`
 )
   .then((res) => res.json())
   .then((res) => {
     cart.value = res;
-    console.log(res._id);
 
-    localStorage.setItem("cartId", res._id);
+    localStorage.setItem("cartId", res.data._id);
   });
+fetch(
+  `http://192.168.88.151:3000/api/basket${
+    "?id=" + localStorage.getItem("cartId")
+  }`
+)
+  .then((res) => res.json())
+  .then((res) => {
+    cart.value = res;
 
-const addProductToCart = () => {
-  fetch("http://192.168.88.151:3000/basket/add", {
-    method: "POST",
-    body: JSON.stringify({
-      product: 1,
-      basketId: 2,
-    }),
+    localStorage.setItem("cartId", res.data._id);
   });
-};
+const addProductToCart = () => {};
 </script>
 
 <style lang="scss" scoped>
