@@ -10,7 +10,7 @@
 </script>
 
 <style lang='scss' scoped>
-.wrapper{
-  background: #fafcff;
-}
+// .wrapper{
+//   background: #fafcff;
+// }
 </style>
