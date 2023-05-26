@@ -69,21 +69,21 @@
             <img width="20" src="@/assets/images/heart.png" alt="" />
           </div>
         </div>
-        <div class="nav__profile block__icons">
+        <div class="nav__profile block__icons" @click="modalCart=true">
           <div class="profile">
             <img width="20" src="@/assets/images/basket.png" alt="" />
           </div>
         </div>
       </div>
     </div>
+    <cart v-if="modalCart" @close="modalCart=false"/>
   </header>
-  <ui-modal v-if="false"> Test </ui-modal>
 </template>
 
 <script setup lang="ts">
 import { useTippy } from "vue-tippy/composition";
 const city = ref(null);
-
+const modalCart = ref(false)
 useTippy(city, {
   content: `
   <div>
