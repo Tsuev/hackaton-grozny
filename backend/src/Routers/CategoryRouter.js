@@ -5,7 +5,7 @@ import {addCategory, getCategories} from "../Controllers/CategoryController.js"
 
 const router = Router();
 
-router.get('/getCategories', getCategories);
-router.post('/addCategory', addCategory);
+router.get('/get-categories', getCategories);
+router.post('/add-category', addCategory);
 
 export default router;
