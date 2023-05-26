@@ -17,7 +17,7 @@
 <script setup lang="ts">
 let categories: any = ref(null);
 
-fetch("http://192.168.88.151:3000/api/category/get-categories")
+fetch(`http://192.168.88.151:3000/api/category/get-categories`)
   .then((res) => res.json())
   .then((res) => (categories.value = res));
 </script>
