@@ -1,4 +1,6 @@
+import Farmer from "../Models/Farmer.js";
 import Product from "../Models/Product.js"
+
 
 
 export const addProduct = async (req, res) => {
@@ -28,15 +30,27 @@ export const addProduct = async (req, res) => {
 
 
 export const getProduct = async (req, res) => {
-    
-    Product.find().then(data => {
-        res.json(data)
-    }).catch(err => {
+
+
+
+    let product = await Product.find().catch(err => {
         res.json({
             msg: 'Something wrong',
             err
         })
     })
+
+    let result = []
+    for(let i = 0; i < product.length; i++) {
+        let {name, surname} = await Farmer.findOne({
+            _id: product[i].farmerId
+        })
+
+        result.push({product: product[i], farmerName:`${surname} ${name}`}) 
+        
+    }
+    console.log(result)
+    res.json(result);
 }
 
 
