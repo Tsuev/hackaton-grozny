@@ -9,7 +9,7 @@ export const hashPassword = (password) => {
 export const getUserByToken = async (req) => {
     const token = req.headers.authorization
     const tokenModel = await Token.findOne({ token })
-    if (tokenModel) User.findOne({ _id: tokenModel.user })
+    if (tokenModel) return User.findOne({ _id: tokenModel.user })
     return null
 }
 

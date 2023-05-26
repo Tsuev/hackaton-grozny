@@ -2,7 +2,7 @@ import { Schema, model } from 'mongoose'
 const basketItem = new Schema(
     {
         product: String,
-        BasketId: String,
+        basketId: String,
         quantity: Number,
     },
     { timestamps: true }

@@ -1,14 +1,13 @@
 import { Schema, model } from 'mongoose'
 const order = new Schema(
     {
-        userId: String,
-        sum: Number,
-        deliveryTypeId: String,
-        paymentTypeId: String,
-        deliveryAddress: {
+        userId: {
             type: String,
             default: null,
         },
+        sum: Number,
+        deliveryTypeId: String,
+        deliveryAddress: String,
     },
     { timestamps: true }
 )

@@ -6,7 +6,10 @@ import Product from '../Models/Product.js'
 export const getBasket = async (req, res) => {
     const user = await getUserByToken(req)
     let basket
-    if (user) {
+    const cartId = req.query.id
+    if (cartId !== 'undefined' && cartId !== 'null') {
+        basket = await Basket.findOne({ _id: cartId })
+    } else if (user) {
         basket = await Basket.findOne({ userId: user?._id })
     }
     if (!basket) {
@@ -32,13 +35,13 @@ export const getBasket = async (req, res) => {
 
 export const addBasketItem = async (req, res) => {
     try {
-        const { productId, basketId } = req.body
+        const { product, basketId } = req.body
         const user = await getUserByToken(req)
 
-        const existedBasketItem = BasketItem.findOne({ product: productId })
+        const existedBasketItem = BasketItem.findOne({ product })
         if (existedBasketItem) {
             BasketItem.updateOne(
-                { product: productId },
+                { product: product },
                 {
                     quantity: existedBasketItem.quantity + 1,
                 }
@@ -46,7 +49,7 @@ export const addBasketItem = async (req, res) => {
         }
 
         const item = await BasketItem.create({
-            product: productId,
+            product: product,
             basketId: basketId,
             quantity: 1,
         })

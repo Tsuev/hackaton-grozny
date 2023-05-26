@@ -4,6 +4,7 @@ const orderProduct = new Schema(
         product: String,
         orderId: String,
         price: Number,
+        quantity: Number,
     },
     { timestamps: true }
 )
