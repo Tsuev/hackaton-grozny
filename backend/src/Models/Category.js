@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 const category = new Schema({
     title: String,
-    image: {
+    img: {
         type: String,
         default: null,
     },
