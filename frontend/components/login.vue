@@ -3,18 +3,42 @@
     <div class="modal-login">
       <h2>Вход</h2>
       <form>
-        <input v-model="email" type="text" name="email" id="" placeholder="Логин" />
-        <input v-model="password" type="password" name="password" id="" placeholder="Пароль" />
-        <div class="flex gap-[10px] justify-between ">
-               Покупатель
-               <div class="flex"><input v-model="isFarmer" type="checkbox" id="switch" /><label for="switch">Toggle</label>
-               </div>
-               Фермер
-            </div>
-        <button @click.prevent="Fetchlogin"
-            class="py-[10px] px-[20px] mt-[20px] hover:bg-green-700 transition-all bg-green-400 text-xl font-semibold text-white rounded-[10px]">Войти</button>
-        <button @click.prevent="$emit('regist'), $emit('close')"
-            class="py-[10px] px-[20px] hover:bg-gray-700 transition-all bg-gray-400 text-xl font-semibold text-white rounded-[10px]">Рагистрация</button>
+        <input
+          v-model="email"
+          type="text"
+          name="email"
+          id=""
+          placeholder="Логин"
+        />
+        <input
+          v-model="password"
+          type="password"
+          name="password"
+          id=""
+          placeholder="Пароль"
+        />
+        <div class="flex gap-[10px] justify-between">
+          Покупатель
+          <div class="flex">
+            <input v-model="isFarmer" type="checkbox" id="switch" /><label
+              for="switch"
+              >Toggle</label
+            >
+          </div>
+          Фермер
+        </div>
+        <button
+          @click.prevent="Fetchlogin"
+          class="py-[10px] px-[20px] mt-[20px] hover:bg-green-700 transition-all bg-green-400 text-xl font-semibold text-white rounded-[10px]"
+        >
+          Войти
+        </button>
+        <button
+          @click.prevent="$emit('regist'), $emit('close')"
+          class="py-[10px] px-[20px] hover:bg-gray-700 transition-all bg-gray-400 text-xl font-semibold text-white rounded-[10px]"
+        >
+          Рагистрация
+        </button>
       </form>
     </div>
   </UiModal>
@@ -32,7 +56,7 @@ const store = useFetchUserStore();
 
 const Fetchlogin = async () => {
   try {
-    const res = await fetch("http://192.168.88.151:3000/api/user/login", {
+    const res = await fetch("http://localhost:3000/api/user/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
@@ -42,12 +66,12 @@ const Fetchlogin = async () => {
 
     const data = await res.json();
     if (data.token) {
-         store.dataUser = {...data.user, isFarmer: isFarmer.value};
-         sessionStorage.setItem("user", JSON.stringify(store.dataUser));
+      store.dataUser = { ...data.user, isFarmer: isFarmer.value };
+      sessionStorage.setItem("user", JSON.stringify(store.dataUser));
     }
 
     emit("close");
-  } catch (error) { }
+  } catch (error) {}
 };
 </script>
 
@@ -68,47 +92,47 @@ const Fetchlogin = async () => {
 }
 
 input {
-   @apply p-[10px] border border-gray-200 rounded-[5px];
+  @apply p-[10px] border border-gray-200 rounded-[5px];
 }
-input#switch[type=checkbox] {
-   height: 0;
-   width: 0;
-   visibility: hidden;
-}
-
-label[for=switch] {
-   cursor: pointer;
-   text-indent: -9999px;
-   width: 50px;
-   height: 25px;
-   background: grey;
-   display: block;
-   border-radius: 100px;
-   position: relative;
+input#switch[type="checkbox"] {
+  height: 0;
+  width: 0;
+  visibility: hidden;
 }
 
-label[for=switch]:after {
-   content: '';
-   position: absolute;
-   top: 2px;
-   left: 3px;
-   width: 21px;
-   height: 21px;
-   background: #fff;
-   border-radius: 90px;
-   transition: 0.3s;
+label[for="switch"] {
+  cursor: pointer;
+  text-indent: -9999px;
+  width: 50px;
+  height: 25px;
+  background: grey;
+  display: block;
+  border-radius: 100px;
+  position: relative;
 }
 
-input#switch:checked+label {
-   background: #bada55;
+label[for="switch"]:after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 3px;
+  width: 21px;
+  height: 21px;
+  background: #fff;
+  border-radius: 90px;
+  transition: 0.3s;
 }
 
-input#switch:checked+label:after {
-   left: calc(100% - 5px);
-   transform: translateX(-100%);
+input#switch:checked + label {
+  background: #bada55;
 }
 
-label[for=switch]:active:after {
-   width: 130px;
+input#switch:checked + label:after {
+  left: calc(100% - 5px);
+  transform: translateX(-100%);
+}
+
+label[for="switch"]:active:after {
+  width: 130px;
 }
 </style>

@@ -207,7 +207,7 @@ const bonusArr = [
   },
 ];
 
-fetch("http://192.168.88.151:3000/api/get-product")
+fetch("http://localhost:3000/api/get-product")
   .then((res) => res.json())
   .then((res) => {
     productArr.value = res;

@@ -110,7 +110,7 @@ const props = defineProps({
 });
 
 function addProductToCart(id) {
-  fetch("http://192.168.88.151:3000/api/basket/add", {
+  fetch("http://localhost:3000/api/basket/add", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({

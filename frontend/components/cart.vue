@@ -55,7 +55,7 @@
 <script setup lang="ts">
 let cart: any = ref([]);
 
-fetch("http://192.168.88.151:3000/api/basket/add", {
+fetch("http://localhost:3000/api/basket/add", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({
@@ -65,9 +65,7 @@ fetch("http://192.168.88.151:3000/api/basket/add", {
 });
 
 fetch(
-  `http://192.168.88.151:3000/api/basket${
-    "?id=" + localStorage.getItem("cartId")
-  }`
+  `http://localhost:3000/api/basket${"?id=" + localStorage.getItem("cartId")}`
 )
   .then((res) => res.json())
   .then((res) => {
@@ -77,7 +75,7 @@ fetch(
   });
 
 async function deleteProductOfCart(id: any) {
-  await fetch("http://192.168.88.151:3000/api/basket/delete", {
+  await fetch("http://localhost:3000/api/basket/delete", {
     method: "POST",
     body: JSON.stringify({
       basketItem: id,
@@ -86,9 +84,7 @@ async function deleteProductOfCart(id: any) {
   });
 
   await fetch(
-    `http://192.168.88.151:3000/api/basket${
-      "?id=" + localStorage.getItem("cartId")
-    }`
+    `http://localhost:3000/api/basket${"?id=" + localStorage.getItem("cartId")}`
   )
     .then((res) => res.json())
     .then((res) => {
