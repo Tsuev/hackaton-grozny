@@ -7,22 +7,27 @@
           <span>Минимальная сумма заказа 900 ₽</span>
         </div>
 
-        <div v-if="cart?.basketItems?.length" class="cart__products">
+        <div v-if="cart.length" class="cart__products">
           <div
-            v-for="item in cart.basketItems"
+            v-for="item in cart"
             :key="item._id"
             class="products__item p-2 flex justify-between items-center border-grey border-b"
           >
             <div class="products__img overflow-hidden rounded">
-              <img
-                width="50"
-                src="https://resizer.mail.ru/p/06568562-b3c1-5fbe-937b-a54599702ae0/AAAcfIsJ9WTZnmreGENojDxxT8d2zLC1Vp4PhnPZdACXirhjtt4kVFbDAIWcnO-zfkQgJK6hCLo_awSPGLa69pB2l4A.jpg"
-                alt=""
-              />
+              <img width="50" :src="item.product.image" alt="" />
             </div>
             <div class="products__title">Название продукта</div>
             <div class="products__quantity">{{ item.quantity }} шт.</div>
-            <div class="product__price">{{ item.totalSum }} руб.</div>
+            <div class="products__volume">{{ item.product.volume }}</div>
+            <div class="product__price">{{ item.product.price }} руб.</div>
+            <div @click="deleteProductOfCart(item._id)" class="product__delete">
+              <img
+                width="20"
+                class="cursor-pointer"
+                src="@/assets/images/delete-icon.png"
+                alt=""
+              />
+            </div>
           </div>
         </div>
         <div v-else>Корзина пуста</div>
@@ -50,14 +55,6 @@
 <script setup lang="ts">
 let cart: any = ref([]);
 
-fetch("http://192.168.88.151:3000/api/basket/add", {
-  method: "POST",
-  body: JSON.stringify({
-    product: "6470f40e92c386b950f8d535",
-    basketId: localStorage.getItem("cartId"),
-  }),
-});
-
 fetch(
   `http://192.168.88.151:3000/api/basket${
     "?id=" + localStorage.getItem("cartId")
@@ -65,22 +62,32 @@ fetch(
 )
   .then((res) => res.json())
   .then((res) => {
-    cart.value = res;
+    cart.value = res.data.basketItems;
 
     localStorage.setItem("cartId", res.data._id);
   });
-fetch(
-  `http://192.168.88.151:3000/api/basket${
-    "?id=" + localStorage.getItem("cartId")
-  }`
-)
-  .then((res) => res.json())
-  .then((res) => {
-    cart.value = res;
 
-    localStorage.setItem("cartId", res.data._id);
+async function deleteProductOfCart(id: any) {
+  await fetch("http://192.168.88.151:3000/api/basket/delete", {
+    method: "POST",
+    body: JSON.stringify({
+      basketItem: id,
+    }),
+    headers: { "Content-type": "application/json" },
   });
-const addProductToCart = () => {};
+
+  await fetch(
+    `http://192.168.88.151:3000/api/basket${
+      "?id=" + localStorage.getItem("cartId")
+    }`
+  )
+    .then((res) => res.json())
+    .then((res) => {
+      cart.value = res.data.basketItems;
+
+      localStorage.setItem("cartId", res.data._id);
+    });
+}
 </script>
 
 <style lang="scss" scoped>

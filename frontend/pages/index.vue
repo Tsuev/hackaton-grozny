@@ -43,10 +43,14 @@
       </div>
     </section>
 
-    <section class="homepage-4">
+    <section v-if="productArr.length" class="homepage-4">
       <h2 class="homepage-4__title">Специальные предложения</h2>
       <div class="homepage-4__cards">
-        <product-card v-for="i in productArr" :key="i.id" :obj-prod="i" />
+        <product-card
+          v-for="item in productArr"
+          :key="item._id"
+          :obj-prod="item"
+        />
       </div>
     </section>
 
@@ -96,7 +100,7 @@
   </footer>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { Carousel, Navigation, Pagination, Slide } from "vue3-carousel";
 import "vue3-carousel/dist/carousel.css";
 
@@ -163,44 +167,7 @@ const categoryArr = [
   },
 ];
 
-const productArr = [
-  {
-    id: 1,
-    name: "Творог",
-    img: "https://cdn.esh-derevenskoe.ru/image/cache/catalog/product/4330/4a790d-270x270.JPG?v=3",
-    discTo: "Скидка действует до 1.08.2023",
-    price: 169,
-    discPrice: "149",
-    farmer: "от Дмитрия Воробьева",
-  },
-  {
-    id: 1,
-    name: "Творог",
-    img: "https://cdn.esh-derevenskoe.ru/image/cache/catalog/product/4341/8e3a74-270x270.JPG?v=3",
-    discTo: "Скидка действует до 1.08.2023",
-    price: 125,
-    discPrice: "110",
-    farmer: "от Дмитрия Воробьева",
-  },
-  {
-    id: 1,
-    name: "Творог",
-    img: "https://cdn.esh-derevenskoe.ru/image/cache/catalog/product/4334/5b8e76-270x270.JPG?v=3",
-    discTo: "Скидка действует до 1.08.2023",
-    price: 165,
-    discPrice: "89",
-    farmer: "от Дмитрия Воробьева",
-  },
-  {
-    id: 1,
-    name: "Творог",
-    img: "https://cdn.esh-derevenskoe.ru/image/cache/catalog/product/4339/f91177-270x270.JPG?v=3",
-    discTo: "Скидка действует до 1.08.2023",
-    price: 169,
-    discPrice: "149",
-    farmer: "от Дмитрия Воробьева",
-  },
-];
+let productArr = ref([]);
 
 const bonusArr = [
   {
@@ -240,9 +207,12 @@ const bonusArr = [
   },
 ];
 
-fetch("http://192.168.88.151:3000/api/add-product")
+fetch("http://192.168.88.151:3000/api/get-product")
   .then((res) => res.json())
-  .then((res) => res);
+  .then((res) => {
+    productArr.value = res;
+    console.log(res);
+  });
 </script>
 
 <style lang="scss">
@@ -332,7 +302,8 @@ fetch("http://192.168.88.151:3000/api/add-product")
 
   .homepage-4__cards {
     display: flex;
-    justify-content: space-between;
+    gap: 20px;
+    // justify-content: space-between;
     align-items: center;
   }
 }

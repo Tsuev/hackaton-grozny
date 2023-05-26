@@ -1,41 +1,77 @@
 <template>
-   <div class="w-full max-w-[290px] overflow-hidden rounded-[16px]">
-      <div :style="`background-image: url(${objProd.img})`"
-         class="w-full h-[250px] bg-no-repeat bg-cover bg-center relative">
-         <div
-            class="w-[36px] cursor-pointer transform transition-all hover:scale-[1.1] h-[36px] rounded-[50%] bg-white flex justify-center items-center absolute top-[15px] right-[15px]">
-            <svg version="1.0" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-               width="20px" height="20px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
-               <path fill="#231F20"
-                  d="M48,5c-4.418,0-8.418,1.791-11.313,4.687l-3.979,3.961c-0.391,0.391-1.023,0.391-1.414,0
+  <div class="w-full max-w-[290px] overflow-hidden rounded-[16px]">
+    <div
+      :style="`background-image: url(${objProd.image})`"
+      class="w-full h-[250px] bg-no-repeat bg-cover bg-center relative"
+    >
+      <div
+        class="w-[36px] cursor-pointer transform transition-all hover:scale-[1.1] h-[36px] rounded-[50%] bg-white flex justify-center items-center absolute top-[15px] right-[15px]"
+      >
+        <svg
+          version="1.0"
+          id="Layer_1"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          width="20px"
+          height="20px"
+          viewBox="0 0 64 64"
+          enable-background="new 0 0 64 64"
+          xml:space="preserve"
+        >
+          <path
+            fill="#231F20"
+            d="M48,5c-4.418,0-8.418,1.791-11.313,4.687l-3.979,3.961c-0.391,0.391-1.023,0.391-1.414,0
 	c0,0-3.971-3.97-3.979-3.961C24.418,6.791,20.418,5,16,5C7.163,5,0,12.163,0,21c0,3.338,1.024,6.436,2.773,9
 	c0,0,0.734,1.164,1.602,2.031s24.797,24.797,24.797,24.797C29.953,57.609,30.977,58,32,58s2.047-0.391,2.828-1.172
 	c0,0,23.93-23.93,24.797-24.797S61.227,30,61.227,30C62.976,27.436,64,24.338,64,21C64,12.163,56.837,5,48,5z M57,22
-	c-0.553,0-1-0.447-1-1c0-4.418-3.582-8-8-8c-0.553,0-1-0.447-1-1s0.447-1,1-1c5.522,0,10,4.478,10,10C58,21.553,57.553,22,57,22z" />
-            </svg>
-         </div>
-         <div
+	c-0.553,0-1-0.447-1-1c0-4.418-3.582-8-8-8c-0.553,0-1-0.447-1-1s0.447-1,1-1c5.522,0,10,4.478,10,10C58,21.553,57.553,22,57,22z"
+          />
+        </svg>
+      </div>
+      <!-- <div
             class="py-[5px] rounded-[5px] px-[10px] text-[18px] font-semibold bg-rose-500 bottom-[15px] left-[15px] text-white absolute">
             -10%
-         </div>
-      </div>
-      <div class="p-[15px] border border-gray-300 border-t-0 rounded-[16px] rounded-t-[0px]">
-         <div class="text-[12px] text-rose-600 font-semibold">{{ objProd.discTo }}</div>
-         <div class="font-semibold mt-[5px]">{{ objProd.name }}</div>
-         <div class="text-[12px] text-gray-400">от {{ objProd.farmer }}</div>
-         <div class="flex justify-between mt-[15px]">
-            <div class="font-semibold">
-               <div class="text-gray-400 text-[12px] line-through">{{ objProd.price }}</div>
-               <div class="flex items-end text-rose-600 text-[24px]">{{ objProd.discPrice }}<span class="text-gray-400 text-[12px]"> /
-                     250 г.</span>
-               </div>
-            </div>
-            <div
-               class="w-[44px] h-[44px] cursor-pointer transform transition-all hover:scale-[1.1] rounded-[50%] bg-green-400 flex justify-center items-center">
-               <svg height="26px" width="26px" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg"
-                  xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve">
-                  <g>
-                     <path fill="#000000" class="st0" d="M500.332,149.168c-9.693-11.748-24.018-18.48-39.276-18.48H348.274l-0.377-1.356
+         </div> -->
+    </div>
+    <div
+      class="p-[15px] border border-gray-300 border-t-0 rounded-[16px] rounded-t-[0px]"
+    >
+      <!-- <div class="text-[12px] text-rose-600 font-semibold">{{ objProd.discountPrice }}</div> -->
+      <div class="font-semibold mt-[5px]">{{ objProd.title }}</div>
+      <div class="text-[12px] text-gray-400">от {{ objProd.farmerName }}</div>
+      <div class="flex justify-between mt-[15px]">
+        <div class="font-semibold">
+          <div class="text-gray-400 text-[12px] line-through">
+            {{ objProd.price }} руб.
+          </div>
+          <div class="flex items-end text-rose-600 text-[24px]">
+            {{ objProd.discountPrice }} руб.<span
+              class="text-gray-400 text-[12px]"
+            >
+              / {{ objProd.volume }}
+            </span>
+          </div>
+        </div>
+        <div
+          @click="addProductToCart(objProd._id)"
+          ref="cartNotification"
+          class="w-[44px] h-[44px] cursor-pointer transform transition-all hover:scale-[1.1] rounded-[50%] bg-green-400 flex justify-center items-center"
+        >
+          <svg
+            height="26px"
+            width="26px"
+            version="1.1"
+            id="_x32_"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            viewBox="0 0 512 512"
+            xml:space="preserve"
+          >
+            <g>
+              <path
+                fill="#000000"
+                class="st0"
+                d="M500.332,149.168c-9.693-11.748-24.018-18.48-39.276-18.48H348.274l-0.377-1.356
 		c-2.243-8.131-7.396-15.105-14.54-19.647l-0.861-0.539l-0.18-68.408c-0.251-12.942-7.485-24.816-18.884-30.973
 		c-5.259-2.836-11.183-4.335-17.124-4.335c-6.516,0-12.943,1.795-18.579,5.187l-1.526,0.88l-0.018-0.027l-64.298,37.058
 		c-15.24,9.523-25.095,25.912-26.387,44.311l-0.018,37.858l-1.832,0.008c-20.553,0.109-40.262,7.746-55.538,21.514L18.597,251.144
@@ -57,21 +93,46 @@
 		l0.951-0.476c6.264-3.168,12.062-7.136,17.214-11.784l24.826-23.031L412.34,291.767z M451.238,379.562
 		c-1.006,5.07-3.518,9.648-7.27,13.247l-22.241,21.172l3.052-41.834l31.341-25.158L451.238,379.562z M460.088,320.371
 		l-33.496,26.934l3.357-46.294l37.534-30.156L460.088,320.371z M471.45,244.26l-39.689,31.898l3.339-46.106l44.661-41.439
-		L471.45,244.26z" />
-                  </g>
-               </svg>
-            </div>
-         </div>
+		L471.45,244.26z"
+              />
+            </g>
+          </svg>
+        </div>
       </div>
-   </div>
+    </div>
+  </div>
 </template>
 <script setup>
+import { useTippy } from "vue-tippy/composition";
+
 const props = defineProps({
-   objProd: Object
-})
+  objProd: Object,
+});
+
+function addProductToCart(id) {
+  fetch("http://192.168.88.151:3000/api/basket/add", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      product: id,
+      basketId: localStorage.getItem("cartId"),
+    }),
+  });
+}
+
+const cartNotification = ref(null);
+
+useTippy(cartNotification, {
+  content: `
+  <div>
+   Добавлено в корзину!
+  <div>
+  `,
+  //   interactive: true,
+  trigger: "click",
+  placement: "top",
+});
 </script>
-<style lang="">
-   
-</style>
+<style lang=""></style>
 
 <!-- <product-card :obj-prod="{ name: 'Творог 4%', discTo: '28.05', farmer: 'Дмитрия Воробьева', img: 'https://cdn.esh-derevenskoe.ru/image/cache/catalog/product/4330/4a790d-270x270.JPG?v=3', discPrice: '149 ₽', price: '165 ₽', quantity: '250 г.' }" /> -->
