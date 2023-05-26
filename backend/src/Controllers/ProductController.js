@@ -33,7 +33,7 @@ export const getProduct = async (req, res) => {
 
 
 
-    let product = await Product.find().catch(err => {
+    let product = await Product.find().lean().catch(err => {
         res.json({
             msg: 'Something wrong',
             err
@@ -46,7 +46,9 @@ export const getProduct = async (req, res) => {
             _id: product[i].farmerId
         })
 
-        result.push({product: product[i], farmerName:`${surname} ${name}`}) 
+        // result.push({product: product[i], farmerName:`${surname} ${name}`}) 
+        result.push({...product[i], farmerName:`${surname} ${name}`}) 
+         
         
     }
     console.log(result)
