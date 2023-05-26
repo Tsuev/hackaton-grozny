@@ -1,16 +1,15 @@
 <template>
-  <div class="bonus-card"
-  v-bind:style="{ backgroundImage: 'url(' + image + ')' }"
+  <div class="bonus-card mx-1"
+  v-bind:style="{ backgroundImage: 'url(' + objBonus.img + ')' }"
   >
-    <h2 class="bonus-card__title">Милые цены</h2>
+    <h2 class="bonus-card__title"> {{ objBonus.title }}</h2>
   </div>  
 </template>
 
-<script setup lang='ts'>
-  defineProps({
-    title: String,
-    image: String,
-  })
+<script setup>
+  const props = defineProps({
+   objBonus: Object
+})
 </script>
 
 <style lang='scss' scoped>
@@ -24,6 +23,10 @@
     color: white;
     font-size: 22px;
     font-weight: 500;
+  }
+  
+  .bonus-card__title{
+    color: red;
   }
 
   

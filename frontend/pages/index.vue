@@ -1,15 +1,19 @@
 <template>
   <div class="container">
-    <section class="homepage-1">
-    <Carousel :wrapAround="true" :items-to-show="6" :autoplay="5000">
+  <section class="homepage-1">
+    <Carousel :wrapAround="true" :items-to-show="1" :autoplay="5000">
     <Slide v-for="slide in 10" :key="slide">
-      <bonus-card/>
+      <bonus-card
+      v-for="i in bonusArr" :key="i.id"
+      :obj-bonus="i"
+      />
     </Slide>
     <template #addons>
       <Navigation />
     </template>
   </Carousel>
   </section>
+
   <section class="homepage-2">
     <h2 class="homepage-2__title">
       Lorem ipsum dolor sit amet consectetur adipisicing.
@@ -64,8 +68,41 @@
       />
     </div>
   </section>
+
+  <section class="homepage-6">
+    <div class="homepage-6__mailing">
+      <h2>Подпишитесь <br> на рассылку</h2>
+      <p>скидки и акции только для подписчиков</p>
+      <div class="mailing-input">
+        <input type="mail" placeholder="E-mail">
+        <button class="mailing-btn">Подписаться</button>
+      </div>
+    </div>
+  </section>
   </div>
-  
+  <footer>
+    <div class="container footer">
+      <div class="footer-list__one">
+        <img src="@/assets/images/logo2.png" alt="" />
+      </div>
+      <div class="footer-list__two">
+        <ul>
+          <li>
+            <NuxtLink to="/"> Главная </NuxtLink>
+          </li>
+          <li>
+            <NuxtLink to="/fermers"> Поставщики </NuxtLink>
+          </li>
+          <li>
+            <NuxtLink to="/fermers"> Фермерам </NuxtLink>
+          </li>
+          <li>
+            <NuxtLink to="/about"> О нас </NuxtLink>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </footer>
 </template>
 
 <script setup lang="ts">
@@ -126,6 +163,16 @@ const productArr = [
     discPrice: '149', 
     farmer: 'от Дмитрия Воробьева',
   }
+]
+
+const bonusArr = [
+  {id: 1, title: '', img: 'https://cdn.esh-derevenskoe.ru/image/cache/catalog/5bb1e4-200x200.jpg?v=3'},
+  {id: 2, title: '', img: 'https://cdn.esh-derevenskoe.ru/image/cache/catalog/ca3536-200x200.jpg?v=3'},
+  {id: 3, title: '', img: 'https://cdn.esh-derevenskoe.ru/image/cache/catalog/1c2c41-200x200.jpg?v=3'},
+  {id: 4, title: '', img: 'https://cdn.esh-derevenskoe.ru/image/cache/catalog/eee36c-200x200.jpg?v=3'},
+  {id: 5, title: '', img: 'https://cdn.esh-derevenskoe.ru/image/cache/catalog/f24a3d-200x200.jpg?v=3'},
+  {id: 6, title: '', img: 'https://cdn.esh-derevenskoe.ru/image/cache/catalog/aec48c-200x200.jpg?v=3'},
+  {id: 7, title: '', img: 'https://cdn.esh-derevenskoe.ru/image/cache/catalog/f51d6f-200x200.jpg?v=3'},
 ]
 
 </script>
@@ -236,4 +283,69 @@ const productArr = [
   }
 }
 
+.homepage-6{
+  text-align: center;
+  width: 100%;
+  height: 415px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 50px 0;
+  background-image: url("https://i.ytimg.com/vi/FnLoFO9YMQ0/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGCUgWyhyMA8=&amp;rs=AOn4CLAL01O-7X7Cf5mvn5eFIaTRu29BpQ");
+  .homepage-6__mailing h2{
+    font-size: 52px;
+    line-height: 1.3;
+    font-weight: 600;
+  }
+  .homepage-6__mailing p{
+    margin: 20px 0;
+  }
+
+  .mailing-input input{
+    padding: 15px 20px;
+    width: 380px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: #f4f4f4;
+    margin: 0 10px;
+    outline-color:  #86efac;
+  }
+
+  .mailing-input button{
+    width: 145px;
+    height: 50px;
+    background-color: #000000;
+    color: white;
+    padding: 14px 20px;
+    border-radius: 10px;
+  }
+}
+
+footer{
+  width: 100%;
+  height: 120px;
+  background-color: #078335;
+  display: flex;
+  align-items: center;
+}
+
+.footer{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 500;
+  ul li{
+    padding: 8px;
+  }
+
+  .footer-list__one img{
+    width: 300px;
+  }
+  
+  .footer-list__two ul{
+    display: flex;
+    color: white;
+  }
+}
 </style>

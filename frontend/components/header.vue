@@ -14,10 +14,10 @@
               <NuxtLink to="/catalog"> Каталог </NuxtLink>
             </li>
             <li>
-              <NuxtLink to="/fermers"> Поставщики </NuxtLink>
+              <NuxtLink to="/farmers"> Поставщики </NuxtLink>
             </li>
             <li>
-              <NuxtLink to="/fermers"> Фермерам </NuxtLink>
+              <NuxtLink to="/info"> Фермерам </NuxtLink>
             </li>
             <li>
               <NuxtLink to="/about"> О нас </NuxtLink>
