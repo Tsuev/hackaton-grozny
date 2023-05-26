@@ -26,7 +26,7 @@
          <div class="flex justify-between mt-[15px]">
             <div class="font-semibold">
                <div class="text-gray-400 text-[12px] line-through">{{ objProd.price }}</div>
-               <div class="flex items-end text-rose-600 ">{{ objProd.discPrice }}<span class="text-gray-400 text-[12px]"> /
+               <div class="flex items-end text-rose-600 text-[24px]">{{ objProd.discPrice }}<span class="text-gray-400 text-[12px]"> /
                      250 г.</span>
                </div>
             </div>
