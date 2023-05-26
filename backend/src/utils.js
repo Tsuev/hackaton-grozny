@@ -9,7 +9,8 @@ export const hashPassword = (password) => {
 export const getUserByToken = async (req) => {
     const token = req.headers.authorization
     const tokenModel = await Token.findOne({ token })
-    return User.findOne({ _id: tokenModel.user })
+    if (tokenModel) User.findOne({ _id: tokenModel.user })
+    return null
 }
 
 export const defaultError = (res, err) => res.status(500).json({ message: err })

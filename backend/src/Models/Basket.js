@@ -4,6 +4,10 @@ const basket = new Schema(
         userId: String,
         quantity: Number,
         totalSum: Number,
+        basketItems: {
+            type: Array,
+            default: [],
+        },
     },
     { timestamps: true }
 )
