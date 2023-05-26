@@ -5,6 +5,7 @@ const product = new Schema({
     farmerId: String,
     categoryId: String,
     price: Number,
+    volume: String,
     optPrice: {
         type: Number,
         default: null
