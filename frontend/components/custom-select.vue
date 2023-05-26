@@ -1,8 +1,5 @@
 <template>
-  <div class="container">
-    <Header />
-    <slot />
-  </div>
+  <div class="custom__select"></div>
 </template>
 
 <script setup lang="ts"></script>
