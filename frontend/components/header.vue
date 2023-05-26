@@ -1,7 +1,7 @@
 <template>
   <header class="shadow-md">
     <div class="header container">
-      <div class="main__nav">
+      <div class="main__nav mb-5">
         <div class="nav__logo mr-10">
           <img src="@/assets/images/logo.png" alt="" />
         </div>
@@ -24,7 +24,7 @@
 
         <div ref="city" class="nav__city">Москва ▼</div>
 
-        <div class="nav__profile">
+        <div class="nav__profile block__icons">
           <NuxtLink to="/profile">
             <div class="profile">
               <img width="20" src="@/assets/images/user-logo.png" alt="" />
@@ -32,18 +32,44 @@
           </NuxtLink>
         </div>
       </div>
-      <div class="second__nav">
+      <div class="second__nav flex items-stretch gap-3">
         <div
-          class="nav__categories flex items-center p-3 bg-green-300 rounded-md"
+          class="nav__categories flex items-center p-3 bg-green-300 rounded-md cursor-pointer"
         >
           <div class="logo__img mr-2">
             <img width="20" src="@/assets/images/categories.png" alt="" />
           </div>
-          <span class="font-bold">Категории</span>
+          <span class="font-bold">Каталог</span>
         </div>
-        <div class="nav__search">
-          <div class="zoom__icon"></div>
-          <input type="text" />
+        <div
+          class="nav__search flex flex-1 items-center rounded-md bg-gray-200"
+        >
+          <div class="zoom__icon mx-2">
+            <img width="25" src="@/assets/images/zoom.png" alt="" />
+          </div>
+          <input
+            placeholder="Поиск"
+            class="search__input focus-within:outline-none bg-transparent h-full"
+            type="text"
+          />
+        </div>
+        <div
+          class="nav__categories flex items-center p-3 bg-green-300 rounded-md cursor-pointer"
+        >
+          <div class="logo__img mr-2">
+            <img width="20" src="@/assets/images/calendar.png" alt="" />
+          </div>
+          <span class="font-bold">Доставка еды: все дни</span>
+        </div>
+        <div class="nav__profile block__icons">
+          <div class="profile">
+            <img width="20" src="@/assets/images/heart.png" alt="" />
+          </div>
+        </div>
+        <div class="nav__profile block__icons">
+          <div class="profile">
+            <img width="20" src="@/assets/images/basket.png" alt="" />
+          </div>
         </div>
       </div>
     </div>
@@ -72,6 +98,9 @@ const handler = () => console.log("true");
 .router-link-exact-active {
   @apply bg-green-500 py-1 px-3 rounded-sm text-white;
 }
+header {
+  @apply sticky top-0 z-50 bg-white;
+}
 .header {
   padding: 10px 0px;
   .main__nav {
@@ -89,10 +118,12 @@ const handler = () => console.log("true");
         @apply mx-5 font-bold hover:bg-green-400 hover:text-white transition-all;
       }
     }
+  }
+  .second__nav {
+  }
 
-    .nav__profile {
-      @apply p-3 rounded-lg bg-slate-200 cursor-pointer;
-    }
+  .block__icons {
+    @apply p-3 rounded-lg bg-slate-200 cursor-pointer hover:bg-slate-400 transition-all;
   }
 }
 </style>
