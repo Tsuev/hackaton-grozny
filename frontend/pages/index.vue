@@ -13,7 +13,7 @@
 
     <section class="homepage-2">
       <h2 class="homepage-2__title">
-        Lorem ipsum dolor sit amet consectetur adipisicing.
+        Лучшее с поля — сервис по доставке настоящих фермерских продуктов
       </h2>
 
       <div class="homepage-2__cards">
