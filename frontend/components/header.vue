@@ -27,8 +27,8 @@
 
         <div ref="city" class="nav__city">Москва ▼</div>
 
-        <div class="nav__profile block__icons">
-          <div @click="$router.push('/lk')" class="profile">
+        <div @click="$router.push('/lk')" class="nav__profile block__icons">
+          <div class="profile">
             <img width="20" src="@/assets/images/user-logo.png" alt="" />
           </div>
         </div>
