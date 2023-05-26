@@ -1,7 +1,6 @@
 <template>
-  <Header />
-  <div>
-    <slot />
+  <div class="container">
+    <div class="farmers">Empty page</div>
   </div>
 </template>
 

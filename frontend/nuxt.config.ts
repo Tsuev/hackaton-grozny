@@ -20,9 +20,12 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
-      title: 'Федерация спортивного программирования',
+      title: 'Лучшее с поля',
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1',
+      link: [
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      ]
     }
-  }
+  },
 })
