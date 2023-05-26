@@ -12,19 +12,26 @@
 </template>
 
 <script setup>
+import { useFetchUserStore } from "@/store/index";
+
+const dataUser = (useFetchUserStore()).dataUser;
 const actPage = ref(0)
-const lkUserData = [
-   { title: 'Фамилия и имя', txt: 'Сергей Степанов' },
-   { title: 'Контактный телефон', txt: '9298955050' },
-   { title: 'Контактный E-mail', txt: 'mtsef@mai.com' },
-   { title: 'Адресс', txt: 'Чеченская Респ, Шалинский р-н, г Шали, Набережная ул, 12' },
-]
-const cardObj = {
-   number: '5244 2150 8252 6420',
-   name: 'JOE ALISON',
-   date: '10 / 25',
-   cvc: '824'
-}
+
+if(!dataUser) await navigateTo('/')
+
+const lkUserData = computed(()=>[
+   { title: 'Фамилия и имя', txt: `${dataUser.surname} ${dataUser.name}` },
+   { title: 'Контактный телефон', txt: dataUser.phone },
+   { title: 'Контактный E-mail', txt: dataUser.email },
+   { title: 'Адресс', txt: dataUser.address },
+])
+
+const cardObj = computed(()=>({
+   number: dataUser.cardNumber,
+   name: dataUser.cardHolder,
+   date: dataUser.cardExpiredDate,
+   cvc: dataUser.cardCvs
+}))
 </script>
 
 <style lang="scss" scoped></style>

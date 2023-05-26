@@ -23,15 +23,25 @@
                </g>
             </svg> {{ i }}
          </li>
+         <li class="cursor-pointer py-[5px] text-rose-700 font-semibold" @click="logout">Выход</li>
       </ul>
    </nav>
 </template>
 
 <script setup>
+import { useFetchUserStore } from "@/store/index";
+
+const store = useFetchUserStore()
 const props = defineProps({
    lkMenuArr: Array,
    actPage: Number
 })
+
+const logout = async () => {
+  store.dataUser = null
+  sessionStorage.removeItem("user");
+  await navigateTo('/')
+}
 </script>
 
 <style lang="scss" scoped></style>

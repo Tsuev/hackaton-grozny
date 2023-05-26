@@ -27,7 +27,7 @@
 
         <div ref="city" class="nav__city">Москва ▼</div>
         <!--  -->
-        <div @click="$router.push('/lk')" class="nav__profile block__icons">
+        <div @click="store.dataUser ? $router.push('/lk'): modalLogin=true" class="nav__profile block__icons" :class="{'opacity-50':!store.dataUser}">
           <div class="profile">
             <img width="20" src="@/assets/images/user-logo.png" alt="" />
           </div>
@@ -75,13 +75,26 @@
       </div>
     </div>
     <cart v-if="modalCart" @close="modalCart = false" />
+    <Login v-if="modalLogin" @regist="modalRegist = true"  @close="modalLogin = false"/>
+    <Regist v-if="modalRegist" @close="modalRegist = false" />
   </header>
 </template>
 
 <script setup lang="ts">
 import { useTippy } from "vue-tippy/composition";
+import { useFetchUserStore } from "@/store/index";
+
+const store = useFetchUserStore();
 const city = ref(null);
+const modalRegist = ref(false);
 const modalCart = ref(false);
+const modalLogin = ref(false);
+
+onMounted(() => {
+  store.dataUser = JSON.parse(sessionStorage.getItem("user"))
+});
+
+
 useTippy(city, {
   content: `
   <div>
