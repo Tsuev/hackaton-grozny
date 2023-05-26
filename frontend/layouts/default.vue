@@ -1,11 +1,10 @@
 <template>
-  <div class="min-h-[calc(100vh-185px)]">
+  <div class="container">
+    <Header />
     <slot />
   </div>
 </template>
 
-<script setup lang="ts">
-import Header from "~/modules/Header/Header.vue";
-</script>
+<script setup lang="ts"></script>
 
 <style lang="scss" scoped></style>
