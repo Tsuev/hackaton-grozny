@@ -4,6 +4,7 @@ const basketSubscription = new Schema(
         userId: String,
         basketId: String,
         activatePeriodDays: Number,
+        startDate: String,
     },
     { timestamps: true }
 )
