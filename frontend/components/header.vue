@@ -1,6 +1,6 @@
 <template>
   <header class="shadow-md">
-    <div class="header container">
+    <div class="header container py-3">
       <div class="main__nav mb-5">
         <div class="nav__logo mr-10">
           <img src="@/assets/images/logo.png" alt="" />
@@ -11,10 +11,13 @@
               <NuxtLink to="/"> Главная </NuxtLink>
             </li>
             <li>
-              <NuxtLink to="/fermers"> Поставщики </NuxtLink>
+              <NuxtLink to="/catalog"> Каталог </NuxtLink>
             </li>
             <li>
-              <NuxtLink to="/fermers"> Фермерам </NuxtLink>
+              <NuxtLink to="/farmers"> Поставщики </NuxtLink>
+            </li>
+            <li>
+              <NuxtLink to="/info"> Фермерам </NuxtLink>
             </li>
             <li>
               <NuxtLink to="/about"> О нас </NuxtLink>
@@ -66,25 +69,28 @@
             <img width="20" src="@/assets/images/heart.png" alt="" />
           </div>
         </div>
-        <div class="nav__profile block__icons">
+        <div class="nav__profile block__icons" @click="modalCart=true">
           <div class="profile">
             <img width="20" src="@/assets/images/basket.png" alt="" />
           </div>
         </div>
       </div>
     </div>
+    <cart v-if="modalCart" @close="modalCart=false"/>
   </header>
 </template>
 
 <script setup lang="ts">
 import { useTippy } from "vue-tippy/composition";
 const city = ref(null);
-
+const modalCart = ref(false)
 useTippy(city, {
   content: `
+  <div>
     <div> Грозный </div>
     <div> Санкт-Петербург </div>
     <div> Волгоград </div>
+  <div>
   `,
   interactive: true,
   trigger: "click",
@@ -102,7 +108,6 @@ header {
   @apply sticky top-0 z-50 bg-white;
 }
 .header {
-  padding: 10px 0px;
   .main__nav {
     @apply flex items-center justify-between;
 
@@ -113,9 +118,9 @@ header {
     .navigation ul {
       @apply flex;
 
-      li {
+      li a {
         @apply py-1 px-3 rounded-sm;
-        @apply mx-5 font-bold hover:bg-green-400 hover:text-white transition-all;
+        @apply mx-5 font-bold hover:bg-green-500 hover:text-white transition-all;
       }
     }
   }
