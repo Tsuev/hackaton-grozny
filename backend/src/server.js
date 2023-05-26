@@ -1,6 +1,7 @@
 import express from 'express'
 import connect from './db/db.js'
 import userRoutes from './Routers/UserRoutes.js'
+import farmerRoutes from './Routers/FarmerRoutes.js'
 import categoryRouter from './Routers/CategoryRouter.js'
 import basketRoutes from './Routers/BasketRoutes.js'
 import cors from 'cors'
@@ -11,6 +12,7 @@ connect()
 app.use(express.json())
 app.use(cors())
 app.use('/api/category', categoryRouter)
+app.use('/api', farmerRoutes)
 app.use('/api', userRoutes)
 app.use('/api', basketRoutes)
 

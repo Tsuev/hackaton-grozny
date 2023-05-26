@@ -5,9 +5,12 @@ const farmer = new Schema(
   {
     name: String,
     surname: String,
-    login: String,
+    email: String,
     password: String,
-    isAccepted: Boolean,
+    isAccepted: {
+      type:  Boolean,
+      default: false
+    },
     organizationName: String,
     address: String,
     bankCardNumber: String,
