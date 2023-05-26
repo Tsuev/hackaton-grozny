@@ -1,15 +1,9 @@
 <template>
   <div class="container">
-    <div class="farmers">
-      mans
-    </div>
-  </div>  
+    <div class="farmers">Empty page</div>
+  </div>
 </template>
 
-<script setup lang='ts'>
-  
-</script>
+<script setup lang="ts"></script>
 
-<style lang='scss' scoped>
-  
-</style>
+<style lang="scss" scoped></style>

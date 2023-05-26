@@ -2,7 +2,7 @@
   <header class="shadow-md">
     <div class="header container py-3">
       <div class="main__nav mb-5">
-        <div class="nav__logo mr-10">
+        <div @click="$router.push('/')" class="nav__logo mr-10 cursor-pointer">
           <img src="@/assets/images/logo.png" alt="" />
         </div>
         <nav class="navigation">
@@ -14,13 +14,13 @@
               <NuxtLink to="/catalog"> Каталог </NuxtLink>
             </li>
             <li>
-              <NuxtLink to="/farmers"> Поставщики </NuxtLink>
-            </li>
-            <li>
-              <NuxtLink to="/info"> Фермерам </NuxtLink>
+              <NuxtLink to="/farmers"> Фермеры </NuxtLink>
             </li>
             <li>
               <NuxtLink to="/about"> О нас </NuxtLink>
+            </li>
+            <li>
+              <NuxtLink to="/info"> FAQ </NuxtLink>
             </li>
           </ul>
         </nav>
@@ -28,11 +28,9 @@
         <div ref="city" class="nav__city">Москва ▼</div>
 
         <div class="nav__profile block__icons">
-          <NuxtLink to="/profile">
-            <div class="profile">
-              <img width="20" src="@/assets/images/user-logo.png" alt="" />
-            </div>
-          </NuxtLink>
+          <div @click="$router.push('/lk')" class="profile">
+            <img width="20" src="@/assets/images/user-logo.png" alt="" />
+          </div>
         </div>
       </div>
       <div class="second__nav flex items-stretch gap-3">
@@ -69,21 +67,21 @@
             <img width="20" src="@/assets/images/heart.png" alt="" />
           </div>
         </div>
-        <div class="nav__profile block__icons" @click="modalCart=true">
+        <div class="nav__profile block__icons" @click="modalCart = true">
           <div class="profile">
             <img width="20" src="@/assets/images/basket.png" alt="" />
           </div>
         </div>
       </div>
     </div>
-    <cart v-if="modalCart" @close="modalCart=false"/>
+    <cart v-if="modalCart" @close="modalCart = false" />
   </header>
 </template>
 
 <script setup lang="ts">
 import { useTippy } from "vue-tippy/composition";
 const city = ref(null);
-const modalCart = ref(false)
+const modalCart = ref(false);
 useTippy(city, {
   content: `
   <div>
