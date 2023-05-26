@@ -93,7 +93,7 @@ const props = defineProps({
   }
 
   select{
-    width: 150px;
+    width: 194px;
     height: 36px;
     margin: 10px 0;
     background-color: #e5e7eb;
