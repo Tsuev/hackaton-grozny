@@ -3,6 +3,12 @@ const order = new Schema(
     {
         userId: String,
         sum: Number,
+        deliveryTypeId: String,
+        paymentTypeId: String,
+        deliveryAddress: {
+            type: String,
+            default: null,
+        },
     },
     { timestamps: true }
 )

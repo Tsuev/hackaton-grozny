@@ -4,9 +4,26 @@ const user = new Schema(
     {
         name: String,
         surname: String,
-        login: String,
+        email: String,
+        phone: String,
         password: String,
-        logo: {
+        address: {
+            type: String,
+            default: null,
+        },
+        cardNumber: {
+            type: String,
+            default: null,
+        },
+        cardCvs: {
+            type: String,
+            default: null,
+        },
+        cardExpiredDate: {
+            type: String,
+            default: null,
+        },
+        cardHolder: {
             type: String,
             default: null,
         },
