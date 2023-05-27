@@ -12,10 +12,5 @@ export const addCategory = async (req, res) => {
 }
 
 export const getCategories = async (req, res) => {
-<<<<<<< HEAD
-
-    res.json( await Category.find());
-=======
     res.json(await Category.find())
->>>>>>> 633730c933f98ba1da08caf7979b9ebd14f8a650
 }
