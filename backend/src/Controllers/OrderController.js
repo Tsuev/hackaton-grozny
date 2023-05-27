@@ -6,18 +6,29 @@ import { defaultError, getUserByToken } from '../utils.js'
 import OrderProduct from '../Models/OrderProduct.js'
 
 export const getOrders = async (req, res) => {
-    const user = await getUserByToken(req)
-    if (!user) {
-        res.status(500).json({ message: 'No token provided' })
+    const orders = await Order.find().lean()
+    const result = []
+    for (let i = 0; i < orders.length; i++) {
+        const order = orders[i]
+        const orderProducts = await OrderProduct.find({
+            orderId: order._id,
+        }).lean()
+        const resultProducts = []
+        for (let j = 0; j < orderProducts.length; j++) {
+            resultProducts[j] = {
+                ...orderProducts[j],
+                product: await Product.findOne({
+                    _id: orderProducts[j].product,
+                }),
+            }
+        }
+        result[i] = {
+            ...order,
+            orderProducts: resultProducts,
+        }
     }
 
-    const orders = await Order.find()
-
-    for(let i = 0, i < orders.length; i++){
-
-    }
-
-    return res.json({ data: orders })
+    return res.json({ data: result })
 }
 
 export const createOrder = async (req, res) => {
