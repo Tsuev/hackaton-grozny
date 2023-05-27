@@ -4,39 +4,39 @@
          <h2>Регистрация</h2>
          <form class="w-[500px]">
             <div class="flex gap-[10px]">
-               <input v-model="name" type="text" name="name" id="" placeholder="Имя" />
-               <input v-model="surname" type="text" name="surname" id="" placeholder="Фамилия" />
+               <input required v-model="name" type="text" name="name" id="" placeholder="Имя" />
+               <input required v-model="surname" type="text" name="surname" id="" placeholder="Фамилия" />
             </div>
             <div class="flex gap-[10px]">
-               <input v-model="phone" type="text" name="phone" id="" placeholder="Телефон" />
-               <input v-model="email" type="text" name="email" id="" placeholder="Почта" />
+               <input required v-model="phone" type="text" name="phone" id="" placeholder="Телефон" />
+               <input required v-model="email" type="text" name="email" id="" placeholder="Почта" />
             </div>
             <div class="flex gap-[10px]">
-               <input v-model="address" type="text" name="address" id="" placeholder="Адрес" />
-               <input v-model="password" type="password" name="password" id="" placeholder="Пароль" />
+               <input required v-model="address" type="text" name="address" id="" placeholder="Адрес" />
+               <input required v-model="password" type="password" name="password" id="" placeholder="Пароль" />
             </div>
             <form v-if="isFarmer">
                <div class="flex gap-[10px]">
-                  <input v-model="organizationName" type="text" name="organizationName" id="" placeholder="Имя организации" />
-                  <input v-model="bankCardNumber" type="text" name="bankCardNumber" id="" placeholder="Номер карта" />
+                  <input required v-model="organizationName" type="text" name="organizationName" id="" placeholder="Имя организации" />
+                  <input required v-model="bankCardNumber" type="text" name="bankCardNumber" id="" placeholder="Номер карта" />
                </div>
                <div class="flex gap-[10px]">
-                  <input v-model="bik" type="text" name="bik" id="" placeholder="БИК" />
-                  <input v-model="kpp" type="text" name="password" id="" placeholder="КПП" />
+                  <input required v-model="bik" type="text" name="bik" id="" placeholder="БИК" />
+                  <input required v-model="kpp" type="text" name="password" id="" placeholder="КПП" />
                </div>
                <div class="flex gap-[10px]">
-                  <input v-model="inn" type="text" name="inn" id="" placeholder="ИНН" />
-                  <input v-model="bankCardHolder" type="text" name="bankCardHolder" id="" placeholder="Имя держателя" />
+                  <input required v-model="inn" type="text" name="inn" id="" placeholder="ИНН" />
+                  <input required v-model="bankCardHolder" type="text" name="bankCardHolder" id="" placeholder="Имя держателя" />
                </div>
                <div class="flex gap-[10px]">
-                  <input v-model="region" type="text" name="region" id="" placeholder="Регион" />
-                  <input v-model="city" type="text" name="city" id="" placeholder="Город" />
+                  <input required v-model="region" type="text" name="region" id="" placeholder="Регион" />
+                  <input required v-model="city" type="text" name="city" id="" placeholder="Город" />
                </div>
                <h4>Тип доставок</h4>
                <div class=" grid grid-cols-2 gap-[10px]">
                   <div v-for="i in deliveryTypes" :key="i._id" class="flex justify-between items-center">
                      <label :for="i._id" class="text-[12px]">{{ i.title }}</label>
-                     <input type="checkbox" ref="checkDeliveryTypes" class="w-auto" :name="i.title" :id="i._id" />
+                     <input required type="checkbox" ref="checkedDeliveryTypes" class="w-auto" :name="i.title" :value="i._id" />
                   </div>
                </div>
             </form>
@@ -75,7 +75,7 @@ const dataUser = ref({});
 const emit = defineEmits(["close"]);
 const deliveryTypes = ref([])
 const store = useFetchUserStore();
-
+const checkedDeliveryTypes = ref(null)
 
 const FetchReg = async () => {
    try {
@@ -83,7 +83,7 @@ const FetchReg = async () => {
          phone: phone.value, name: name.value,
          surname: surname.value, address: address.value }
       if(isFarmer.value) objRes = {...objRes, bankCardNumber: bankCardNumber.value, organizationName: organizationName.value,
-         inn: inn.value, bankCardHolder: bankCardHolder.value,
+         inn: inn.value, bankCardHolder: bankCardHolder.value, deliveryTypes: checkedDeliveryTypes.value.filter(el=>el.checked).map(el=>el.value),
          region: region.value, city: city.value, bik: bik.value, kpp: kpp.value}
          
       const res = await fetch(`http://192.168.88.151:3000/api/${isFarmer.value?'farmer-register':'user/register'}`, {
@@ -99,16 +99,16 @@ const FetchReg = async () => {
          store.dataUser = {...dataUser.value, isFarmer: isFarmer.value};
          sessionStorage.setItem("user", JSON.stringify(store.dataUser));
       }
-
       emit("close");
-   } catch (error) { }
+   } catch (error) {
+      console.log(error)
+   }
 };
 
 const getDeliveryTypes = async () => {
    try {
       const res = await fetch("http://192.168.88.151:3000/api/get-types");
       deliveryTypes.value = await res.json()
-      console.log(deliveryTypes.value);
    } catch (error) { }
 };
 
