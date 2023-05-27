@@ -50,6 +50,7 @@ export const userAuth = async (req, res) => {
         const hash = hashPassword(str)
         await Token.create({
             token: hash,
+            user: result._id,
         })
 
         return res.json({
