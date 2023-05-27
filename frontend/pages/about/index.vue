@@ -1,8 +1,6 @@
 <template>
-  <div class="container">
-    <div class="about">
-      about
-    </div>
+  <div class="about">
+    about
   </div>  
 </template>
 

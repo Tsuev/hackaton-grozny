@@ -50,14 +50,11 @@ function toggleAnswer(index) {
 </script>
 
 <style lang="scss" scoped>
-
-.faq{
-  margin-top: 50px  
-}
 .faq-title{
   font-size: 52px;
   font-weight: 600;
   line-height: 1.1;
+  margin: 50px 0;
 }
 
 .faq-list li {
