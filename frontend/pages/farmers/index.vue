@@ -3,10 +3,14 @@
     <div class="farmers">
       <div class="farmers-title">
         <h2>Наши поставщики — ответственные трудолюбивые фермеры</h2>
-        <p>Среди них основатели небольших артелей, производств и сельских хозяйств. В наш ассортимент попадают только самые лучшие продукты от 239 производителей прошедших отбор.</p>
+        <p>
+          Среди них основатели небольших артелей, производств и сельских
+          хозяйств. В наш ассортимент попадают только самые лучшие продукты от
+          239 производителей прошедших отбор.
+        </p>
       </div>
     </div>
-    <div class="farmers-input">
+    <!-- <div class="farmers-input">
       <div
           class="nav__categories flex items-center p-3 bg-green-300 rounded-md cursor-pointer"
         >
@@ -27,55 +31,79 @@
             type="text"
           />
         </div>
-    </div>
+    </div> -->
 
     <div class="farmers-cards">
-      <farmer-card
-        v-for="i in farmersData" :key="i.id"
-        :obj-farmer="i"
-      />
+      <farmer-card v-for="i in farmersData" :key="i.id" :obj-farmer="i" />
     </div>
   </div>
 </template>
 
 <script setup>
-
 const farmersData = [
-  { id:'1',  title: 'Boris', img: '', subtitle: 'Поставщик', farmType: 'овощей' },
-  { id:'2',  title: 'Boris', img: '', subtitle: 'Поставщик', farmType: 'овощей' },
-  { id:'3',  title: 'Boris', img: '', subtitle: 'Поставщик', farmType: 'овощей' },
-  { id:'4',  title: 'Boris', img: '', subtitle: 'Поставщик', farmType: 'овощей' },
-  { id:'5',  title: 'Boris', img: '', subtitle: 'Поставщик', farmType: 'овощей' },
-
-]
-
+  {
+    id: "1",
+    title: "Boris",
+    img: "",
+    subtitle: "Поставщик",
+    farmType: "овощей",
+  },
+  {
+    id: "2",
+    title: "Boris",
+    img: "",
+    subtitle: "Поставщик",
+    farmType: "овощей",
+  },
+  {
+    id: "3",
+    title: "Boris",
+    img: "",
+    subtitle: "Поставщик",
+    farmType: "овощей",
+  },
+  {
+    id: "4",
+    title: "Boris",
+    img: "",
+    subtitle: "Поставщик",
+    farmType: "овощей",
+  },
+  {
+    id: "5",
+    title: "Boris",
+    img: "",
+    subtitle: "Поставщик",
+    farmType: "овощей",
+  },
+];
 </script>
 
 <style lang="scss" scoped>
-  .farmers{
-    margin: 50px 0;
-    .farmers-title{
-      text-align: center;
-    }
-    .farmers-title h2{
-      font-size: 52px;
-      font-weight: 600;
-      margin: 30px 0;
-    }
+.farmers {
+  margin: 50px 0;
+  .farmers-title {
+    text-align: center;
   }
-  .farmers-input{
-    display: flex;
-    
-    .nav__categories{
-      margin-right: 20px;
-    }
+  .farmers-title h2 {
+    font-size: 52px;
+    font-weight: 600;
+    margin: 30px 0;
   }
+}
+.farmers-input {
+  display: flex;
 
-  .farmers-cards{
-    margin: 50px 0;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    grid-row-gap: 20px;
+  .nav__categories {
+    margin-right: 20px;
   }
+}
+
+.farmers-cards {
+  margin: 50px 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-row-gap: 20px;
+}
 </style>
