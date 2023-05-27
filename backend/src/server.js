@@ -11,6 +11,8 @@ import productRoutes from './Routers/ProductRoutes.js'
 import orderRoutes from './Routers/OrderRouter.js'
 
 import cors from 'cors'
+import reviewRoutes from './Routers/ReviewRoutes.js'
+import adminRoutes from './Routers/AdminRoutes.js'
 const app = express()
 
 const port = 3000
@@ -28,6 +30,8 @@ app.use('/api', basketRoutes)
 app.use('/api', deliveryTypes)
 app.use('/api', productRoutes)
 app.use('/api', orderRoutes)
+app.use('/api', reviewRoutes)
+app.use('/api', adminRoutes)
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
