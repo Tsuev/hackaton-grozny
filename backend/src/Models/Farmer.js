@@ -7,6 +7,7 @@ const farmer = new Schema(
     surname: String,
     email: String,
     password: String,
+    phone: String,
     isAccepted: {
       type:  Boolean,
       default: false
