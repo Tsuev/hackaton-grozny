@@ -30,7 +30,7 @@
         <div
           @click="store.dataUser ? $router.push('/lk') : (modalLogin = true)"
           class="nav__profile block__icons"
-          :class="{ 'opacity-50': !store.dataUser }"
+          :class="store.dataUser? 'bg-green-300 ':'opacity-50 bg-slate-200'"
         >
           <div class="profile">
             <img width="20" src="@/assets/images/user-logo.png" alt="" />
@@ -146,7 +146,7 @@ header {
   }
 
   .block__icons {
-    @apply p-3 rounded-lg bg-slate-200 cursor-pointer hover:bg-slate-400 transition-all;
+    @apply p-3 rounded-lg cursor-pointer hover:bg-slate-400 transition-all;
   }
 }
 </style>

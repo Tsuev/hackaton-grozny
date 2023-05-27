@@ -3,8 +3,8 @@
     <div class="modal-login">
       <h2>Вход</h2>
       <form>
-        <input v-model="email" type="text" name="email" id="" placeholder="Логин" />
-        <input v-model="password" type="password" name="password" id="" placeholder="Пароль" />
+        <input required v-model="email" type="text" name="email" id="" placeholder="Логин" />
+        <input required v-model="password" type="password" name="password" id="" placeholder="Пароль" />
         <div class="flex gap-[10px] justify-between ">
                Покупатель
                <div class="flex"><input v-model="isFarmer" type="checkbox" id="switch" /><label for="switch">Toggle</label>
@@ -32,7 +32,7 @@ const store = useFetchUserStore();
 
 const Fetchlogin = async () => {
   try {
-    const res = await fetch("http://192.168.88.151:3000/api/user/login", {
+    const res = await fetch(`http://192.168.88.151:3000/api/${isFarmer.value?'farmer-login':'user/login'}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
