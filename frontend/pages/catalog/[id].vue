@@ -1,6 +1,6 @@
 <template>
   <div class="container py-5">
-    <div v-if="isLoading">
+    <div v-if="!isLoading">
       <div v-if="productArr.length" class="flex flex-wrap gap-10">
         <product-card
           v-for="item in productArr"
@@ -26,7 +26,7 @@ try {
     .then((res) => {
       productArr.value = res;
     })
-    .then((res) => (isLoading.value = false));
+    .finally((res) => (isLoading.value = false));
 } catch (error) {
   alert(error);
 }
