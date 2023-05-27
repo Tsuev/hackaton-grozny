@@ -3,8 +3,8 @@ import mongoose from 'mongoose'
 
 const ticketCommentSchema = new Schema({
     content: String,
-    ticket: String,
-    user: String,
+    ticketId: String,
+    userId: String,
 })
 
 const TicketComment = mongoose.model('Token', ticketCommentSchema)

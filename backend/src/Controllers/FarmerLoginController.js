@@ -68,3 +68,12 @@ export const farmerAuth = async (req, res) => {
         })
     }
 }
+
+
+export const getFarmers = async (req, res) => {
+    Farmer.find().then(data=> {
+        res.json(data);
+    }).catch(err=> {
+        res.json(err);
+    })
+}
