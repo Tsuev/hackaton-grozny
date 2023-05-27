@@ -99,6 +99,9 @@
         </form>
         <button :disabled="redf" @click="addImg" class="farmerBtn py-[10px] disabled:opacity-40 px-[20px] mt-[20px] hover:bg-green-700 transition-all text-xl font-semibold rounded-[10px]" :class="successAdd?'bg-white text-green-400': 'bg-green-400 text-white'">{{successAdd?'Успешно добавлено':'Выставить'}}</button>
      </div>
+     <div v-if="actPage == 3">
+      
+     </div>
   </div>
 </template>
 <script setup>
