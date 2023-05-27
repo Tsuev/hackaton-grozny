@@ -39,6 +39,7 @@
       </div>
       <div class="second__nav flex items-stretch gap-3">
         <div
+          @click="$router.push('/catalog')"
           class="nav__categories flex items-center p-3 bg-green-300 rounded-md cursor-pointer"
         >
           <div class="logo__img mr-2">
