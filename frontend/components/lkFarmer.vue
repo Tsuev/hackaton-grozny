@@ -163,10 +163,7 @@ const categories = ref("");
 const getProductByFarmer = async () => {
    try {
       const res = await fetch(`http://192.168.88.151:3000/api/get-product-by-farmer?farmerId=${props.farmerId}`);
-      productsByFarmer.value = (await res.json()).map(el=>{
-        el.image = 'http://192.168.88.151:3000/' + el.image.replace('src/', '')
-        return el
-      })
+      productsByFarmer.value = await res.json()
    } catch (error) { }
 };
 
