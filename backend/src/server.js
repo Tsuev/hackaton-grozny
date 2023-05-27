@@ -8,17 +8,22 @@ import deliveryTypes from './Routers/DeliveryTypeRoutes.js'
 import productRoutes from './Routers/ProductRoutes.js'
 import cors from 'cors'
 const app = express()
+
 const port = 3000
+
 connect()
 
 app.use(express.json())
+
 app.use(cors())
+
 app.use('/api/category', categoryRouter)
 app.use('/api', farmerRoutes)
 app.use('/api', userRoutes)
 app.use('/api', basketRoutes)
 app.use('/api', deliveryTypes)
 app.use('/api', productRoutes)
+
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })

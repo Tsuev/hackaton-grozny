@@ -2,6 +2,7 @@ import { defaultError, getUserByToken } from '../utils.js'
 import BasketItem from '../Models/BasketItem.js'
 import Basket from '../Models/Basket.js'
 import Product from '../Models/Product.js'
+import BasketSubscription from '../Models/BasketSubscription.js'
 
 export const getBasket = async (req, res) => {
     const user = await getUserByToken(req)
@@ -21,12 +22,17 @@ export const getBasket = async (req, res) => {
         basket.basketItems = []
     } else {
         const items = await BasketItem.find({ basketId: basket._id })
-        basket.basketItems = items.map(async (item) => {
-            return {
-                ...item,
-                product: await Product.findOne({ _id: item.product }),
+        let i = 0
+        while (i < items.length) {
+            const product = await Product.findOne({ _id: items[i].product })
+            basket.basketItems[i] = {
+                product: product,
+                quantity: items[i].quantity,
+                _id: items[i]._id,
             }
-        })
+            basket.basketItems[i].product = product
+            i++
+        }
     }
     return res.json({
         data: basket,
@@ -36,16 +42,23 @@ export const getBasket = async (req, res) => {
 export const addBasketItem = async (req, res) => {
     try {
         const { product, basketId } = req.body
+        console.log('product basket id', req.body)
         const user = await getUserByToken(req)
-
-        const existedBasketItem = BasketItem.findOne({ product })
+        const existedBasketItem = await BasketItem.findOne({
+            product,
+            basketId,
+        })
         if (existedBasketItem) {
-            BasketItem.updateOne(
-                { product: product },
+            const updated = await BasketItem.updateOne(
+                { product, basketId },
                 {
                     quantity: existedBasketItem.quantity + 1,
                 }
             )
+            return res.json({
+                result: 'success',
+            })
+        } else {
         }
 
         const item = await BasketItem.create({
@@ -59,5 +72,34 @@ export const addBasketItem = async (req, res) => {
         })
     } catch (error) {
         return defaultError(res, error)
+    }
+}
+
+export const deleteBasketItem = async (req, res) => {
+    try {
+        const { basketItem } = req.body
+
+        const result = await BasketItem.deleteOne({ _id: basketItem })
+
+        return res.json({
+            success: true,
+        })
+    } catch (error) {
+        return defaultError(res, error)
+    }
+}
+
+export const addBasketSubscription = async (req, res) => {
+    const { basketId, startPeriod, activatePeriodDays } = req.body
+
+    const user = await getUserByToken(req)
+
+    if (user) {
+        const subscription = BasketSubscription.create({
+            userId: user._id,
+            basketId,
+            startPeriod,
+            activatePeriodDays,
+        })
     }
 }
