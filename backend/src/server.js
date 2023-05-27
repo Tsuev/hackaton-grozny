@@ -1,11 +1,15 @@
 import express from 'express'
+
 import connect from './db/db.js'
+
 import userRoutes from './Routers/UserRoutes.js'
 import farmerRoutes from './Routers/FarmerRoutes.js'
 import categoryRouter from './Routers/CategoryRouter.js'
 import basketRoutes from './Routers/BasketRoutes.js'
 import deliveryTypes from './Routers/DeliveryTypeRoutes.js'
 import productRoutes from './Routers/ProductRoutes.js'
+import orderRoutes from './Routers/OrderRouter.js'
+
 import cors from 'cors'
 const app = express()
 
@@ -23,6 +27,7 @@ app.use('/api', userRoutes)
 app.use('/api', basketRoutes)
 app.use('/api', deliveryTypes)
 app.use('/api', productRoutes)
+app.use('/api', orderRoutes)
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
