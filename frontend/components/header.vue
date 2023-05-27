@@ -1,5 +1,5 @@
 <template>
-  <header class="shadow-md">
+  <header v-if="showHeader" class="shadow-md">
     <div class="header container py-3">
       <div class="main__nav mb-5">
         <div @click="$router.push('/')" class="nav__logo mr-10 cursor-pointer">
@@ -128,12 +128,20 @@ const store = useFetchUserStore();
 const modalStore = useModalStore();
 const city = ref(null);
 const modalRegist = ref(false);
+const showHeader = ref(true);
 const modalCart = ref(false);
 const modalLogin = ref(false);
 const deliveryData = ref([]);
-
 const orderAddress = ref("");
 const orderDeliveryType = ref("");
+
+onMounted( async () => {
+  store.dataUser = await JSON.parse(sessionStorage.getItem("user"));
+  if(store.dataUser && store.dataUser.isFarmer) {
+    showHeader.value = false
+    navigateTo('/lk')
+  }
+});
 
 function startOrder() {
   modalStore.mutationOrderModal(true);
@@ -162,10 +170,6 @@ async function sendOrder() {
     alert("Произошла ошибка: " + error);
   }
 }
-
-onMounted(() => {
-  store.dataUser = JSON.parse(sessionStorage.getItem("user"));
-});
 
 useTippy(city, {
   content: `

@@ -16,7 +16,7 @@
 import { useFetchUserStore } from "@/store/index";
 const dataUser = (useFetchUserStore()).dataUser;
 
-if(!dataUser) await navigateTo('/')
+if(!dataUser) navigateTo('/')
 
 const deliveryTypes = ref([])
 const actPage = ref(0)

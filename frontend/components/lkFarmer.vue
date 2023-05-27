@@ -100,7 +100,33 @@
         <button :disabled="redf" @click="addImg" class="farmerBtn py-[10px] disabled:opacity-40 px-[20px] mt-[20px] hover:bg-green-700 transition-all text-xl font-semibold rounded-[10px]" :class="successAdd?'bg-white text-green-400': 'bg-green-400 text-white'">{{successAdd?'Успешно добавлено':'Выставить'}}</button>
      </div>
      <div v-if="actPage == 3">
-      
+      <div class="">
+        <h2 class="text-[30px] font-bold mb-[40px]">Выставленные заказы</h2>
+        <div
+            v-for="item in cart"
+            :key="item._id"
+            class="products__item p-2 flex justify-between items-center border-grey border-b"
+          >
+            <div class="products__img overflow-hidden rounded">
+              <img width="50" :src="item.product.image" alt="" />
+            </div>
+            <div class="products__title">{{ item?.product.title }}</div>
+            <div class="products__quantity">{{ item?.quantity }} шт.</div>
+            <div class="products__volume">{{ item?.product.volume }}</div>
+            <div class="product__price">{{ item?.product.price }} руб.</div>
+            <div
+              @click="deleteProductOfCart(item?._id)"
+              class="product__delete"
+            >
+              <img
+                width="20"
+                class="cursor-pointer"
+                src="@/assets/images/delete-icon.png"
+                alt=""
+              />
+            </div>
+          </div>
+      </div>
      </div>
   </div>
 </template>
@@ -121,6 +147,7 @@ const props = defineProps({
 })
 
 const productsByFarmer = ref([])
+const cart = ref([])
 const optQuantity = ref("");
 const title = ref("");
 const categoryId = ref("");
