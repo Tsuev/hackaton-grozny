@@ -44,39 +44,15 @@ const farmersData = [
   {
     id: "1",
     title: "Boris",
-    img: "",
+    img: "https://www.examen.ru/assets/images/2018/20181005-fermer.jpg",
     subtitle: "Поставщик",
-    farmType: "овощей",
-  },
-  {
-    id: "2",
-    title: "Boris",
-    img: "",
-    subtitle: "Поставщик",
-    farmType: "овощей",
-  },
-  {
-    id: "3",
-    title: "Boris",
-    img: "",
-    subtitle: "Поставщик",
-    farmType: "овощей",
-  },
-  {
-    id: "4",
-    title: "Boris",
-    img: "",
-    subtitle: "Поставщик",
-    farmType: "овощей",
-  },
-  {
-    id: "5",
-    title: "Boris",
-    img: "",
-    subtitle: "Поставщик",
-    farmType: "овощей",
+    farmType: "Помидоры",
   },
 ];
+
+fetch("http://192.168.88.151:3000/")
+  .then((res) => res.json())
+  .then((res) => res);
 </script>
 
 <style lang="scss" scoped>

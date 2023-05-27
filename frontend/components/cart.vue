@@ -51,6 +51,29 @@
         <button @click="$emit('closeModal')" class="cart-sidebar__btn">
           Оформить
         </button>
+        <button @click="subscribe = !subscribe" class="cart-sidebar__btn">
+          Оформить подписку
+        </button>
+        <div v-if="subscribe" class="subscribe__form rounded shadow-lg p-4">
+          <label for="">
+            Дата старта:
+            <input v-modal="subData" type="date" name="" id="" />
+          </label>
+          <label for="">
+            Выберите интервал:
+            <select v-modal="subInterval" name="" id="">
+              <option value="7">Неделя</option>
+              <option value="30">Месяц</option>
+              <option value="365">Год</option>
+            </select>
+          </label>
+          <button
+            @click="subscribeToCart"
+            class="py-[10px] px-[20px] mt-[20px] hover:bg-green-700 transition-all bg-green-400 text-xl font-semibold text-white rounded-[10px]"
+          >
+            Оформить подписку
+          </button>
+        </div>
         <!-- <p class="cart-sidebar__p">Минимальная сумма заказа 900 ₽</p> -->
       </div>
     </div>
@@ -59,8 +82,24 @@
 </template>
 
 <script setup>
+let subscribe = ref(false);
 let cart = ref([]);
 let basketInfo = ref(null);
+
+let subData = ref("");
+let subInterval = ref("");
+
+function subscribeToCart() {
+  fetch("http://192.168.88.151:3000/api/basket/add-subscription", {
+    body: JSON.stringify({
+      userId: "",
+      basketId: localStorage.getItem("cartId"),
+      activatePeriodDays: subInterval.value,
+      startDate: +subData.value,
+    }),
+    headers: { "Content-type": "application/json" },
+  });
+}
 
 try {
   fetch(
@@ -104,7 +143,7 @@ async function deleteProductOfCart(id) {
 <style lang="scss" scoped>
 .cart {
   width: 1200px;
-  height: 300px;
+  // height: 300px;
   display: flex;
   .cart-main {
     width: 70%;
