@@ -3,7 +3,7 @@ import Farmer from '../Models/Farmer.js'
 import { defaultError, hashPassword } from '../utils.js'
 
 export const farmerRegister = async (req, res) => {
-    const { name, surname, email, password, organizationName, address,  bankCardNumber, bik, kpp, inn, bankCardHolder, region, city, deliveryTypes} = req.body
+    const { name, surname, email, password, organizationName, address, phone,  bankCardNumber, bik, kpp, inn, bankCardHolder, region, city, deliveryTypes} = req.body
 
     try {
         if (password.length < 6) {
@@ -21,6 +21,7 @@ export const farmerRegister = async (req, res) => {
             bankCardNumber,
             bik,
             kpp,
+            phone,
             inn,
             bankCardHolder,
             region,
@@ -43,27 +44,36 @@ export const farmerRegister = async (req, res) => {
     }
 }
 
-// export const userAuth = async (req, res) => {
-//     const { email, password } = req.body
-//     let cryptPassword = hashPassword(password)
+export const farmerAuth = async (req, res) => {
+    const { email, password } = req.body
+    let cryptPassword = hashPassword(password)
 
-//     let result = await User.findOne({
-//         email: email,
-//         password: cryptPassword,
-//     })
+    let result = await Farmer.findOne({
+        email: email,
+        password: cryptPassword,
+    })
 
-//     if (result) {
-//         let str = new Date().getTime().toString()
+    if (result) {
+        let str = new Date().getTime().toString()
 
-//         const hash = hashPassword(str)
-//         await Token.create({
-//             token: hash,
-//         })
+        const hash = hashPassword(str)
+        await Token.create({
+            token: hash,
+        })
 
-//         return res.json({
-//             token: hash,
-//             message: 'Success',
-//             user: result,
-//         })
-//     }
-// }
+        return res.json({
+            token: hash,
+            message: 'Success',
+            user: result,
+        })
+    }
+}
+
+
+export const getFarmers = async (req, res) => {
+    Farmer.find().then(data=> {
+        res.json(data);
+    }).catch(err=> {
+        res.json(err);
+    })
+}
