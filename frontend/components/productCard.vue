@@ -1,7 +1,10 @@
 <template>
   <div class="w-full max-w-[290px] overflow-hidden rounded-[16px]">
     <div
-      :style="`background-image: url(${objProd.image})`"
+      :style="`background-image: url(${
+        'http://192.168.88.151:3000/' + objProd.image.replace('src/', '') ||
+        'https://w1.pngwing.com/pngs/665/47/png-transparent-food-icon-tomato-vegetable-fruit-cartoon-icon-design-ketchup-salad.png'
+      })`"
       class="w-full h-[250px] bg-no-repeat bg-cover bg-center relative"
     >
       <div
