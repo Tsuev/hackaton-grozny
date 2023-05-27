@@ -1,6 +1,12 @@
 import Farmer from '../Models/Farmer.js'
 import Product from '../Models/Product.js'
 
+
+export const addProdImage = async (req, res) => {
+    res.json(req.files[0].path.replaceAll("\\", "/"));
+}
+
+
 export const addProduct = async (req, res) => {
     let {
         title,

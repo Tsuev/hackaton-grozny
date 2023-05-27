@@ -9,6 +9,8 @@ import basketRoutes from './Routers/BasketRoutes.js'
 import deliveryTypes from './Routers/DeliveryTypeRoutes.js'
 import productRoutes from './Routers/ProductRoutes.js'
 import orderRoutes from './Routers/OrderRouter.js'
+import path from "path";
+import { fileURLToPath } from 'url';
 
 import cors from 'cors'
 const app = express()
@@ -17,8 +19,11 @@ const port = 3000
 
 connect()
 
-app.use(express.json())
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
+app.use(express.json())
+app.use('/uploads/images', express.static(path.join(__dirname, '/uploads/images')));
 app.use(cors())
 
 app.use('/api/category', categoryRouter)
