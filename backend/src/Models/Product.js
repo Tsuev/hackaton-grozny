@@ -6,6 +6,11 @@ const product = new Schema({
     categoryId: String,
     price: Number,
     volume: String,
+    accessDay: Number,
+    isActive: {
+        type: Boolean,
+        default: true,
+    }
     optPrice: {
         type: Number,
         default: null
