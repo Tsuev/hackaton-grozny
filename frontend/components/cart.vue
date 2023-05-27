@@ -1,10 +1,10 @@
 <template>
-  <UiModal @close="$emit('close')">
+  <UiModal v-if="basketInfo" @close="$emit('close')">
     <div class="cart">
       <div class="cart-main">
         <div class="cart__title">
           <h2>Корзина</h2>
-          <span>Минимальная сумма заказа 900 ₽</span>
+          <!-- <span>Минимальная сумма заказа 900 ₽</span> -->
         </div>
 
         <div v-if="cart.length" class="cart__products">
@@ -16,11 +16,14 @@
             <div class="products__img overflow-hidden rounded">
               <img width="50" :src="item.product.image" alt="" />
             </div>
-            <div class="products__title">Название продукта</div>
-            <div class="products__quantity">{{ item.quantity }} шт.</div>
-            <div class="products__volume">{{ item.product.volume }}</div>
-            <div class="product__price">{{ item.product.price }} руб.</div>
-            <div @click="deleteProductOfCart(item._id)" class="product__delete">
+            <div class="products__title">{{ item?.product.title }}</div>
+            <div class="products__quantity">{{ item?.quantity }} шт.</div>
+            <div class="products__volume">{{ item?.product.volume }}</div>
+            <div class="product__price">{{ item?.product.price }} руб.</div>
+            <div
+              @click="deleteProductOfCart(item?._id)"
+              class="product__delete"
+            >
               <img
                 width="20"
                 class="cursor-pointer"
@@ -35,47 +38,89 @@
       <div class="cart-sidebar">
         <div class="cart-sidebar__one">
           <h2>Кол-во товаров</h2>
-          <p>1</p>
+          <p>{{ basketInfo.quantity || 0 }}</p>
         </div>
-        <div class="cart-sidebar__two">
+        <!-- <div class="cart-sidebar__two">
           <h2>Вес посылки</h2>
           <p>0.8 кг</p>
-        </div>
+        </div> -->
         <div class="cart-sidebar__three">
           <h2>Стоимость продукта</h2>
-          <p>250 ₽</p>
+          <p>{{ basketInfo.totalSum || 0 }} ₽</p>
         </div>
-        <button class="cart-sidebar__btn">Оформить</button>
-        <p class="cart-sidebar__p">Минимальная сумма заказа 900 ₽</p>
+        <button @click="$emit('closeModal')" class="cart-sidebar__btn">
+          Оформить
+        </button>
+        <button @click="subscribe = !subscribe" class="cart-sidebar__btn">
+          Оформить подписку
+        </button>
+        <div v-if="subscribe" class="subscribe__form rounded shadow-lg p-4">
+          <label for="">
+            Дата старта:
+            <input v-modal="subData" type="date" name="" id="" />
+          </label>
+          <label for="">
+            Выберите интервал:
+            <select v-modal="subInterval" name="" id="">
+              <option value="7">Неделя</option>
+              <option value="30">Месяц</option>
+              <option value="365">Год</option>
+            </select>
+          </label>
+          <button
+            @click="subscribeToCart"
+            class="py-[10px] px-[20px] mt-[20px] hover:bg-green-700 transition-all bg-green-400 text-xl font-semibold text-white rounded-[10px]"
+          >
+            Оформить подписку
+          </button>
+        </div>
+        <!-- <p class="cart-sidebar__p">Минимальная сумма заказа 900 ₽</p> -->
       </div>
     </div>
   </UiModal>
+  <Spinner v-else />
 </template>
 
-<script setup lang="ts">
-let cart: any = ref([]);
+<script setup>
+let subscribe = ref(false);
+let cart = ref([]);
+let basketInfo = ref(null);
 
-fetch("http://localhost:3000/api/basket/add", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
-    product: "6470f40e92c386b950f8d535",
-    basketId: localStorage.getItem("cartId"),
-  }),
-});
+let subData = ref("");
+let subInterval = ref("");
 
-fetch(
-  `http://localhost:3000/api/basket${"?id=" + localStorage.getItem("cartId")}`
-)
-  .then((res) => res.json())
-  .then((res) => {
-    cart.value = res.data.basketItems;
-
-    localStorage.setItem("cartId", res.data._id);
+function subscribeToCart() {
+  fetch("http://192.168.88.151:3000/api/basket/add-subscription", {
+    body: JSON.stringify({
+      userId: "",
+      basketId: localStorage.getItem("cartId"),
+      activatePeriodDays: subInterval.value,
+      startDate: +subData.value,
+    }),
+    headers: { "Content-type": "application/json" },
   });
+}
+
+try {
+  fetch(
+    `http://192.168.88.151:3000/api/basket${
+      "?id=" + localStorage.getItem("cartId")
+    }`
+  )
+    .then((res) => res.json())
+    .then((res) => {
+      cart.value = res.data.basketItems;
+      basketInfo.value = res.data;
+      localStorage.setItem("cartId", res.data._id);
+    });
+} catch {
+  alert("Произошла непредвиденная ошибка");
+}
 
 async function deleteProductOfCart(id: any) {
   await fetch("http://localhost:3000/api/basket/delete", {
+async function deleteProductOfCart(id) {
+  await fetch("http://192.168.88.151:3000/api/basket/delete", {
     method: "POST",
     body: JSON.stringify({
       basketItem: id,
@@ -98,7 +143,7 @@ async function deleteProductOfCart(id: any) {
 <style lang="scss" scoped>
 .cart {
   width: 1200px;
-  height: 300px;
+  // height: 300px;
   display: flex;
   .cart-main {
     width: 70%;

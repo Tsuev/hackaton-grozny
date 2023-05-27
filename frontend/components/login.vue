@@ -4,6 +4,7 @@
       <h2>Вход</h2>
       <form>
         <input
+          required
           v-model="email"
           type="text"
           name="email"
@@ -11,6 +12,7 @@
           placeholder="Логин"
         />
         <input
+          required
           v-model="password"
           type="password"
           name="password"
@@ -56,13 +58,18 @@ const store = useFetchUserStore();
 
 const Fetchlogin = async () => {
   try {
-    const res = await fetch("http://localhost:3000/api/user/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
-      },
-      body: JSON.stringify({ email: email.value, password: password.value }),
-    });
+    const res = await fetch(
+      `http://192.168.88.151:3000/api/${
+        isFarmer.value ? "farmer-login" : "user/login"
+      }`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8",
+        },
+        body: JSON.stringify({ email: email.value, password: password.value }),
+      }
+    );
 
     const data = await res.json();
     if (data.token) {

@@ -5,6 +5,7 @@
       <form class="w-[500px]">
         <div class="flex gap-[10px]">
           <input
+            required
             v-model="name"
             type="text"
             name="name"
@@ -12,6 +13,7 @@
             placeholder="Имя"
           />
           <input
+            required
             v-model="surname"
             type="text"
             name="surname"
@@ -21,6 +23,7 @@
         </div>
         <div class="flex gap-[10px]">
           <input
+            required
             v-model="phone"
             type="text"
             name="phone"
@@ -28,6 +31,7 @@
             placeholder="Телефон"
           />
           <input
+            required
             v-model="email"
             type="text"
             name="email"
@@ -37,6 +41,7 @@
         </div>
         <div class="flex gap-[10px]">
           <input
+            required
             v-model="address"
             type="text"
             name="address"
@@ -44,6 +49,7 @@
             placeholder="Адрес"
           />
           <input
+            required
             v-model="password"
             type="password"
             name="password"
@@ -54,6 +60,7 @@
         <form v-if="isFarmer">
           <div class="flex gap-[10px]">
             <input
+              required
               v-model="organizationName"
               type="text"
               name="organizationName"
@@ -61,6 +68,7 @@
               placeholder="Имя организации"
             />
             <input
+              required
               v-model="bankCardNumber"
               type="text"
               name="bankCardNumber"
@@ -70,6 +78,7 @@
           </div>
           <div class="flex gap-[10px]">
             <input
+              required
               v-model="bik"
               type="text"
               name="bik"
@@ -77,6 +86,7 @@
               placeholder="БИК"
             />
             <input
+              required
               v-model="kpp"
               type="text"
               name="password"
@@ -86,6 +96,7 @@
           </div>
           <div class="flex gap-[10px]">
             <input
+              required
               v-model="inn"
               type="text"
               name="inn"
@@ -93,6 +104,7 @@
               placeholder="ИНН"
             />
             <input
+              required
               v-model="bankCardHolder"
               type="text"
               name="bankCardHolder"
@@ -102,6 +114,7 @@
           </div>
           <div class="flex gap-[10px]">
             <input
+              required
               v-model="region"
               type="text"
               name="region"
@@ -109,6 +122,7 @@
               placeholder="Регион"
             />
             <input
+              required
               v-model="city"
               type="text"
               name="city"
@@ -125,11 +139,12 @@
             >
               <label :for="i._id" class="text-[12px]">{{ i.title }}</label>
               <input
+                required
                 type="checkbox"
-                ref="checkDeliveryTypes"
+                ref="checkedDeliveryTypes"
                 class="w-auto"
                 :name="i.title"
-                :id="i._id"
+                :value="i._id"
               />
             </div>
           </div>
@@ -177,6 +192,7 @@ const dataUser = ref({});
 const emit = defineEmits(["close"]);
 const deliveryTypes = ref([]);
 const store = useFetchUserStore();
+const checkedDeliveryTypes = ref(null);
 
 const FetchReg = async () => {
   try {
@@ -195,6 +211,9 @@ const FetchReg = async () => {
         organizationName: organizationName.value,
         inn: inn.value,
         bankCardHolder: bankCardHolder.value,
+        deliveryTypes: checkedDeliveryTypes.value
+          .filter((el) => el.checked)
+          .map((el) => el.value),
         region: region.value,
         city: city.value,
         bik: bik.value,
@@ -202,7 +221,7 @@ const FetchReg = async () => {
       };
 
     const res = await fetch(
-      `http://localhost:3000/api/${
+      `http://192.168.88.151:3000/api/${
         isFarmer.value ? "farmer-register" : "user/register"
       }`,
       {
@@ -219,16 +238,16 @@ const FetchReg = async () => {
       store.dataUser = { ...dataUser.value, isFarmer: isFarmer.value };
       sessionStorage.setItem("user", JSON.stringify(store.dataUser));
     }
-
     emit("close");
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const getDeliveryTypes = async () => {
   try {
-    const res = await fetch("http://localhost:3000/api/get-types");
+    const res = await fetch("http://192.168.88.151:3000/api/get-types");
     deliveryTypes.value = await res.json();
-    console.log(deliveryTypes.value);
   } catch (error) {}
 };
 

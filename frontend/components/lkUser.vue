@@ -13,7 +13,31 @@
       </div>
       <div v-if="actPage == 1">
          <h1 class="text-[30px] font-bold mb-[40px]">История заказов</h1>
-
+         <div v-if="cart.length">
+         <div
+            v-for="item in cart"
+            :key="item._id"
+            class="products__item p-2 flex justify-between items-center border-grey border-b"
+          >
+            <div class="products__img overflow-hidden rounded">
+              <img width="50" :src="'http://192.168.88.151:3000/'+item.product.image.replace('src/', '')" alt="" />
+            </div>
+            <div class="products__title">{{ item?.product.title }}</div>
+            <div class="products__quantity">{{ item?.quantity }} шт.</div>
+            <div class="products__volume">{{ item?.product.volume }}</div>
+            <div class="product__price">{{ item?.product.price }} руб.</div>
+            <div
+              @click="deleteProductOfCart(item?._id)"
+              class="product__delete"
+            >
+              <img
+                width="20"
+                class="cursor-pointer"
+                src="@/assets/images/delete-icon.png"
+                alt=""
+              />
+            </div>
+          </div></div>
       </div>
       <div v-if="actPage == 2">,
          <h1 class="text-[30px] font-bold mb-[40px]">Карта клиента</h1>
@@ -27,10 +51,20 @@
 </template>
 <script setup>
 const modalUserChange = ref(false)
+const cart = ref([])
 const modalCardCash = ref(false)
 const props = defineProps({
    actPage: Number,
    lkUserData: Array,
    cardObj: Object
 })
+
+const getProductByFarmer = async () => {
+   try {
+      const res = await fetch(`http://192.168.88.151:3000/api/orders`);
+      cart.value = (await res.json()).data[0].orderProducts
+   } catch (error) { }
+};
+
+getProductByFarmer()
 </script>

@@ -1,35 +1,34 @@
 <template>
-  <div class="farmer"
-        v-bind:style="{ backgroundImage: 'url(' + image + ')' }"
+  <div
+    class="farmer text-white text-bold"
+    v-bind:style="{ backgroundImage: 'url(' + objFarmer.img + ')' }"
   >
     <div class="farmer-card">
-      <div class="farmer-rate">
-        5
-      </div>
+      <div class="farmer-rate">Рейтинг фермера 1</div>
     </div>
     <div class="farmer-title">
-      <div class="farmer-title__name"> {{ title }} Boris</div>
-      <div class="farmer-title__type"> <span> {{ subtitle }} поставщик: </span> {{ farmerType }}</div>
+      <div class="farmer-title__name">{{ objFarmer.title }}</div>
+      <div class="farmer-title__type">
+        <span> {{ objFarmer.subtitle }}: </span> {{ objFarmer.farmType }}
+      </div>
     </div>
-   
   </div>
 </template>
 
-<script setup lang='ts'>
-  defineProps({
-    title: String,
-    subtitle: String,
-    image: String,
-    farmerType: String,
-  })
+<script setup>
+defineProps({
+  objFarmer: Object,
+});
 </script>
 
-<style lang='scss' scoped>
-  .farmer{
-    width: 270px;
-    height: 390px;
-    background: green;
-    border-radius: 16px;
-    padding: 15px;
-  }
+<style lang="scss" scoped>
+.farmer {
+  text-shadow: 0 0 10px black;
+  width: 270px;
+  height: 330px;
+  border-radius: 16px;
+  padding: 15px;
+  background-color: green;
+  background-position: center;
+}
 </style>

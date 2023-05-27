@@ -211,7 +211,6 @@ fetch("http://localhost:3000/api/get-product")
   .then((res) => res.json())
   .then((res) => {
     productArr.value = res;
-    console.log(res);
   });
 </script>
 
