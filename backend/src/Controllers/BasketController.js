@@ -30,6 +30,8 @@ export const getBasket = async (req, res) => {
                 quantity: items[i].quantity,
                 _id: items[i]._id,
             }
+            basket.quantity += items[i].quantity
+            basket.totalSum += product.discountPrice ?? product.price
             basket.basketItems[i].product = product
             i++
         }

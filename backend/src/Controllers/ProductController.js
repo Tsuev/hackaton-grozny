@@ -56,26 +56,34 @@ export const getProduct = async (req, res) => {
             _id: product[i].farmerId,
         })
 
-        // result.push({product: product[i], farmerName:`${surname} ${name}`})
         result.push({ ...product[i], farmerName: `${surname} ${name}` })
     }
-    console.log(result)
+
     res.json(result)
 }
 
 export const getProductByCategory = async (req, res) => {
     let { categoryId } = req.query
 
-    Product.find({
+    let product = await Product.find({
         categoryId,
     })
-        .then((data) => {
-            res.json(data)
-        })
+        .lean()
         .catch((err) => {
             res.json({
                 msg: 'Something wrong',
                 err,
             })
         })
+
+    let result = []
+    for (let i = 0; i < product.length; i++) {
+        let { name, surname } = await Farmer.findOne({
+            _id: product[i].farmerId,
+        })
+
+        result.push({ ...product[i], farmerName: `${surname} ${name}` })
+    }
+
+    res.json(result)
 }
