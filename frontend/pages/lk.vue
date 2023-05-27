@@ -6,6 +6,7 @@
          </aside>
          <div class="w-full bg-white p-[25px] pl-[30px] rounded-[16px]">
             <LkFarmer v-if="dataUser.isFarmer" :farmerId="dataUser._id" :actPage="actPage" :cardObj="cardObj" :lkUserData="lkFarmerData" />
+            <LkAdmin v-else-if="dataUser.admin" :actPage="actPage" :cardObj="cardObj" :lkUserData="lkUserData" />
             <LkUser v-else :actPage="actPage" :cardObj="cardObj" :lkUserData="lkUserData" />
          </div>
       </div>
@@ -20,7 +21,7 @@ if(!dataUser) navigateTo('/')
 
 const deliveryTypes = ref([])
 const actPage = ref(0)
-const lkMenu = dataUser.isFarmer?['Кабинет','Список товаров','Добавить товар', 'Заказы']:['Кабинет', 'Заказы', 'Карты']
+const lkMenu = dataUser.isFarmer?['Кабинет','Список товаров','Добавить товар', 'Заказы']:dataUser.admin?['Поставщики', 'Статистика']:['Кабинет', 'Заказы', 'Карты']
 
 const getDeliveryTypes = async () => {
    try {

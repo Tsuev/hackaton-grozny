@@ -108,7 +108,7 @@
             class="products__item p-2 flex justify-between items-center border-grey border-b"
           >
             <div class="products__img overflow-hidden rounded">
-              <img width="50" :src="item.product.image" alt="" />
+              <img width="50" :src="'http://192.168.88.151:3000/'+item.product.image.replace('src/', '')" alt="" />
             </div>
             <div class="products__title">{{ item?.product.title }}</div>
             <div class="products__quantity">{{ item?.quantity }} шт.</div>
@@ -175,6 +175,14 @@ const getCategories = async () => {
    } catch (error) { }
 };
 
+const getProductRT = async () => {
+   try {
+      const res = await fetch(`http://192.168.88.151:3000/api/orders`);
+      cart.value = (await res.json()).data[0].orderProducts
+   } catch (error) { }
+};
+
+getProductRT()
 getProductByFarmer()
 getCategories()
 
