@@ -82,3 +82,26 @@ export const createOrder = async (req, res) => {
         return res.json({ data: order })
     }
 }
+
+
+export const getOrderByFarmer = async (req, res) => {
+
+    let {farmerId} = req.body;
+
+    const products = await Product.find({
+        farmerId
+    });
+    let data = [];
+    for(let i = 0; i < products.length; i++){
+        let order = await Order.find({
+            product: products[i].id,
+        })
+        
+        if(order) {
+            data.push(order);
+        }
+    }
+    console.log(data);
+
+    return res.json({ data })
+}
